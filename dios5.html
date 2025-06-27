@@ -36,12 +36,103 @@
             --color-done: var(--vfd-green);
         }
 
+        /* --- Estilos del Login --- */
+        #login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .login-box {
+            background-color: var(--cell-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--main-border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 25px var(--shadow-color);
+        }
+
+        .login-box h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--vfd-green);
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 0 0 5px rgba(80, 224, 80, 0.7);
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background-color: #2c2c2c;
+            border: 1px solid var(--main-border);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-size: 1em;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1em;
+            border-radius: 6px;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+        
+        .login-box button.secondary {
+             background-color: transparent;
+             color: var(--accent-color);
+             border: 1px solid var(--accent-color);
+             margin-top: 10px;
+        }
+
+        .login-box button:hover {
+            background-color: #39ff94;
+            color: var(--bg-color);
+            border-color: #39ff94;
+        }
+        .login-box button:active {
+            transform: scale(0.98);
+        }
+        
+        #login-error {
+            color: var(--error-color);
+            margin-top: 15px;
+            min-height: 1.2em;
+            font-size: 0.9em;
+        }
+        
+        /* Ocultar el contenido principal por defecto */
+        #main-app-content {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+        }
+
         /* --- ESTRUCTURA PRINCIPAL DE LA PÁGINA --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Source Sans Pro', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+        body { font-family: 'Source Sans Pro', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; overflow: hidden; height: 100vh; }
 
         /* --- BANNER FIJO --- */
         .app-banner { padding: 20px 25px; background-color: var(--bg-color); border-bottom: 1px solid var(--main-border); flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .banner-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .banner-bottom-row { display: flex; width: 100%; align-items: center; gap: 20px; }
         .global-progress-container { flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
 
@@ -50,7 +141,9 @@
         .view-wrapper { padding: 20px; }
         .view-wrapper.hidden { display: none; }
         
-        /* --- ELEMENTOS DEL BANNER --- */
+        /* ... (resto de tus estilos CSS van aquí sin cambios) ... */
+        .logout-button { background: none; border: 1px solid var(--error-color); color: var(--error-color); padding: 8px 12px; border-radius: 6px; font-family: 'Orbitron', sans-serif; cursor: pointer; transition: all 0.2s; }
+        .logout-button:hover { background-color: var(--error-color); color: var(--bg-color); }
         .view-switcher { background-color: var(--accent-color); color: var(--bg-color); border: none; padding: 10px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
         .view-switcher:hover { background-color: #39ff94; transform: translateY(-2px); }
         .motivational-quote { font-family: 'Orbitron', sans-serif; color: var(--vfd-green); font-size: 1.5em; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 4px rgba(80, 224, 80, 0.6), 0 0 8px rgba(80, 224, 80, 0.4); min-height: 1.2em; }
@@ -71,8 +164,6 @@
         .progress-bar-fill { height: 100%; width: 0%; border-radius: 8px; transition: width 0.5s ease-in-out; text-align: center; line-height: 22px; color: var(--bg-color); font-weight: bold; font-size: 0.8em; }
         #global-score-bar { background-color: var(--progress-score-bg); }
         #global-advance-bar { background-color: var(--progress-advance-bg); }
-
-        /* --- ESTILOS DEL CALENDARIO --- */
         .calendar-container { display: grid; grid-template-columns: 40px 40px repeat(7, 1fr); gap: 2px; background-color: var(--main-border); }
         .header-cell, .day-header { text-align: center; padding: 12px 5px; font-weight: 600; font-family: 'Orbitron', sans-serif; text-transform: uppercase; font-size: 0.9em; }
         .meta-header { background-color: var(--meta-header-bg); color: var(--meta-text); border-bottom: 2px solid var(--main-border); }
@@ -90,18 +181,8 @@
         .calendar-day-number { font-size: 0.9em; font-weight: 600; color: #777; position: absolute; top: 8px; right: 12px; z-index: 1; transition: color 0.2s; }
         .day-content ul { list-style-type: none; padding-left: 0; margin: 25px 0 0 0; }
         .day-content li { margin-bottom: 4px; padding-left: 14px; position: relative; font-size: 0.85em; }
-        .day-content .subject-title {
-            color: var(--text-color);
-            font-weight: 700; display: block; margin-bottom: 6px; text-transform: uppercase;
-            font-size: 1em; text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
-            padding-left: 0;
-            transition: color 0.4s ease;
-        }
-        .day-content .subject-title.subject-completed {
-            color: var(--text-completed);
-            text-shadow: none;
-            font-style: italic;
-        }
+        .day-content .subject-title { color: var(--text-color); font-weight: 700; display: block; margin-bottom: 6px; text-transform: uppercase; font-size: 1em; text-shadow: 0 0 4px rgba(255, 255, 255, 0.15); padding-left: 0; transition: color 0.4s ease; }
+        .day-content .subject-title.subject-completed { color: var(--text-completed); text-shadow: none; font-style: italic; }
         .subject-title::before { content: none !important; }
         .subject-score { color: var(--meta-text); font-size: 0.8em; font-weight: 400; margin-left: 8px; }
         .topic-item { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; margin-left: -6px; border-radius: 4px; transition: all 0.2s; border-top: 2px solid transparent; border-bottom: 2px solid transparent; }
@@ -115,8 +196,6 @@
         .topic-item.topic-completed { color: var(--text-completed); font-style: italic; }
         .topic-item.topic-completed:hover { color: var(--text-completed); background-color: transparent; }
         .topic-item.topic-completed::before { color: var(--bullet-completed); }
-
-        /* --- ESTILOS DEL KANBAN --- */
         .kanban-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
         .kanban-column { background-color: var(--plan-bg); border-radius: 12px; display: flex; flex-direction: column; max-height: 100%; }
         .kanban-column-header { padding: 15px 20px; border-bottom: 1px solid var(--main-border); display: flex; align-items: center; gap: 10px; position: sticky; top: 0; background-color: var(--plan-bg); z-index: 10; }
@@ -145,8 +224,6 @@
         .card-progress-bar-container { flex-grow: 1; height: 6px; background-color: var(--main-border); border-radius: 3px; }
         .card-progress-bar { height: 100%; width: 0%; border-radius: 3px; transition: width 0.3s ease; }
         .card-progress-text, .card-score-text { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
-        
-        /* --- ESTILOS DE MODALES --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 998; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.visible { display: block; opacity: 1; }
         .modal-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--cell-bg); border: 1px solid var(--main-border); border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.5); z-index: 1000; width: 90%; max-height: 90vh; display: none; flex-direction: column; transition: transform 0.3s ease, opacity 0.3s ease; }
@@ -215,86 +292,168 @@
     </style>
 </head>
 <body>
-    <header class="app-banner">
-        <div id="motivational-quote-container" class="motivational-quote"></div>
-        <div class="countdown-container">
-            <div class="countdown-timer-container">
-                <div class="countdown-unit"><div class="countdown-label">Days</div><div class="countdown-digits" id="countdown-days">000</div></div>
-                <div class="countdown-unit"><div class="countdown-label">Hours</div><div class="countdown-digits" id="countdown-hours">00</div></div>
-                <div class="countdown-unit"><div class="countdown-label">Minutes</div><div class="countdown-digits" id="countdown-minutes">00</div></div>
-                <div class="countdown-unit"><div class="countdown-label">Seconds</div><div class="countdown-digits" id="countdown-seconds">00</div></div>
-            </div>
-            <button id="edit-countdown-btn" title="Editar fecha final"><i class="fas fa-calendar-alt"></i></button>
+    
+    <div id="login-container">
+        <div class="login-box">
+            <h1>Frecuencia Vital</h1>
+            <input type="email" id="login-email" placeholder="Correo electrónico">
+            <input type="password" id="login-password" placeholder="Contraseña">
+            <p id="login-error"></p>
+            <button id="login-button">Iniciar Sesión</button>
+            <button id="signup-button" class="secondary">Registrarse</button>
         </div>
-        <div id="countdown-editor">
-            <input type="date" id="countdown-date-picker">
-            <button id="save-countdown-btn">Guardar</button>
-        </div>
-        <div class="banner-bottom-row">
-            <div class="global-progress-container">
-                <div class="progress-bar-wrapper">
-                    <label id="global-score-label">Puntuación Global (Promedio de Calificaciones)</label>
-                    <div class="progress-bar-background"><div class="progress-bar-fill" id="global-score-bar" role="progressbar">0%</div></div>
-                </div>
-                <div class="progress-bar-wrapper">
-                    <label id="global-advance-label">Avance Global (Temas Completados)</label>
-                    <div class="progress-bar-background"><div class="progress-bar-fill" id="global-advance-bar" role="progressbar">0%</div></div>
-                </div>
-            </div>
-            <button id="view-switcher" class="view-switcher" data-current-view="calendar">
-                <i class="fas fa-columns"></i> Tablero Vital
-            </button>
-        </div>
-    </header>
+    </div>
 
-    <main class="main-content-area">
-        <div id="calendar-view" class="view-wrapper">
-            <div class="calendar-container" id="calendar-container"></div>
-        </div>
-        <div id="board-view" class="view-wrapper hidden">
-            <main class="kanban-board">
-                <section class="kanban-column" id="col-todo">
-                    <div class="kanban-column-header"><h2><i class="far fa-circle" style="margin-right: 8px;"></i>Sin Empezar</h2></div>
-                    <div class="cards-container" id="col-todo-container"></div>
-                </section>
-                <section class="kanban-column" id="col-inprogress">
-                    <div class="kanban-column-header"><h2><i class="fas fa-spinner" style="margin-right: 8px;"></i>En Curso</h2></div>
-                    <div class="cards-container" id="col-inprogress-container"></div>
-                </section>
-                <section class="kanban-column" id="col-done">
-                    <div class="kanban-column-header"><h2><i class="fas fa-check-circle" style="margin-right: 8px;"></i>Listo</h2></div>
-                    <div class="cards-container" id="col-done-container"></div>
-                </section>
-            </main>
-        </div>
-    </main>
-    
-    <div class="modal-overlay" id="modal-overlay"></div>
-    <div class="modal-container" id="details-modal">
-        <div class="modal-header"> <h2 id="modal-title"></h2> <span class="modal-close" id="modal-close-day">×</span> </div>
-        <div class="modal-content"> <div id="modal-topics"></div> <div class="notes-section" style="margin-top: 20px;"> <h3>Mis Anotaciones del Día</h3> <textarea id="modal-notes" placeholder="Escribe aquí tus notas generales para este día..."></textarea> <button id="modal-save-btn">Guardar Nota</button> </div> </div>
-    </div>
-    <div class="modal-overlay" id="topic-plan-overlay"></div>
-    <div class="modal-container" id="topic-plan-modal">
-        <div class="modal-header"> <h2 id="topic-plan-title"></h2> <span class="modal-close" id="modal-close-topic">×</span> </div>
-        <div class="modal-content">
-            <div class="study-flow-diagram">
-                <div class="step-card step-1"> <div class="step-icon-container"><i class="fas fa-binoculars"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">1</span>VISTA RÁPIDA</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-1-1"><i class="fas fa-list-ul task-icon"></i><span class="task-text">Índice</span><span class="tool-tag tag-madera">MADERA</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-1-2"><i class="fas fa-download task-icon"></i><span class="task-text">Descargar guías</span><span class="optional-tag">* opcional</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-1-3"><i class="fas fa-brain task-icon"></i><span class="task-text">CREA resúmenes + casos con IA (5min)</span><span class="tool-tag tag-ia">IAGOOGLE</span></label></li> </ul> </div> </div>
-                <div class="parallel-steps-container"> <div class="step-card step-2"> <div class="step-icon-container"><i class="fas fa-magic"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">2</span>CREAR</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-2-1"><i class="fas fa-chalkboard-teacher task-icon"></i><span class="task-text">Presentación</span><span class="tool-tag tag-genspark">Genspark</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-2-2"><i class="fas fa-microphone-alt task-icon"></i><span class="task-text">Podcast MP3</span><span class="tool-tag tag-notebooklm">NOTEBOOKLM</span></label></li> </ul> </div> </div> <div class="step-card step-3"> <div class="step-icon-container"><i class="fas fa-book-reader"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">3</span>LEER</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-3-1"><i class="fas fa-file-alt task-icon"></i><span class="task-text">Leer Resumen</span></label></li> </ul> </div> </div> </div>
-                <div class="step-card step-4"> <div class="step-icon-container"><i class="fas fa-puzzle-piece"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">4</span>UNIFICAR<span class="subtitle">(resumen + presentación + simular + enlaces)</span></h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-4-1"><i class="fas fa-code task-icon"></i><span class="task-text">HTML</span><span class="tool-tag tag-ia">IAGOOGLE</span></label></li> </ul> </div> </div>
-                <div class="step-card step-5"> <div class="step-icon-container"><i class="fas fa-tasks"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">5</span>PRACTICAR</h2> <div class="practice-step-layout"> <div class="practice-tasks-column"> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-5-1"><i class="fas fa-notes-medical task-icon"></i><span class="task-text">Realiza CASOS CLÍNICOS</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-5-2"><i class="fas fa-redo-alt task-icon"></i><span class="task-text">Repasar</span><span class="tool-tag tag-genspark">GENSPARK</span><span class="tool-tag tag-madera">MADERAS</span></label></li> </ul> </div> <div class="practice-score-column"> <h3>PUNTUACIÓN</h3> <div class="score-inputs-row"> <div class="score-input-group"><label for="score-aciertos">Aciertos:</label><input type="number" id="score-aciertos" min="0"></div> <div class="score-input-group"><label for="score-reactivos">Reactivos:</label><input type="number" id="score-reactivos" min="0"></div> <div class="score-input-group"><label for="score-percentage">%:</label><input type="text" id="score-percentage" class="percentage-output" readonly value="0%"></div> </div> </div> </div> </div> </div>
-                <div class="step-card step-6"> <div class="step-icon-container"><i class="fas fa-head-side-headphones"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">6</span>MEMORIZAR</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-6-1"><i class="fas fa-headphones-alt task-icon"></i><span class="task-text">Escuchar MP3</span></label></li> </ul> </div> </div>
+    <div id="main-app-content">
+        <header class="app-banner">
+            <div class="banner-top-row">
+                 <div id="motivational-quote-container" class="motivational-quote"></div>
+                 <button class="logout-button" id="logout-button">Cerrar Sesión</button>
             </div>
-            <div class="topic-modal-footer"> <button id="topic-finish-btn" class="topic-finish-btn">Terminar Tema</button> </div>
+            <div class="countdown-container">
+                <div class="countdown-timer-container">
+                    <div class="countdown-unit"><div class="countdown-label">Days</div><div class="countdown-digits" id="countdown-days">000</div></div>
+                    <div class="countdown-unit"><div class="countdown-label">Hours</div><div class="countdown-digits" id="countdown-hours">00</div></div>
+                    <div class="countdown-unit"><div class="countdown-label">Minutes</div><div class="countdown-digits" id="countdown-minutes">00</div></div>
+                    <div class="countdown-unit"><div class="countdown-label">Seconds</div><div class="countdown-digits" id="countdown-seconds">00</div></div>
+                </div>
+                <button id="edit-countdown-btn" title="Editar fecha final"><i class="fas fa-calendar-alt"></i></button>
+            </div>
+            <div id="countdown-editor">
+                <input type="date" id="countdown-date-picker">
+                <button id="save-countdown-btn">Guardar</button>
+            </div>
+            <div class="banner-bottom-row">
+                <div class="global-progress-container">
+                    <div class="progress-bar-wrapper">
+                        <label id="global-score-label">Puntuación Global (Promedio de Calificaciones)</label>
+                        <div class="progress-bar-background"><div class="progress-bar-fill" id="global-score-bar" role="progressbar">0%</div></div>
+                    </div>
+                    <div class="progress-bar-wrapper">
+                        <label id="global-advance-label">Avance Global (Temas Completados)</label>
+                        <div class="progress-bar-background"><div class="progress-bar-fill" id="global-advance-bar" role="progressbar">0%</div></div>
+                    </div>
+                </div>
+                <button id="view-switcher" class="view-switcher" data-current-view="calendar">
+                    <i class="fas fa-columns"></i> Tablero Vital
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content-area">
+            <div id="calendar-view" class="view-wrapper">
+                <div class="calendar-container" id="calendar-container"></div>
+            </div>
+            <div id="board-view" class="view-wrapper hidden">
+                <main class="kanban-board">
+                    <section class="kanban-column" id="col-todo">
+                        <div class="kanban-column-header"><h2><i class="far fa-circle" style="margin-right: 8px;"></i>Sin Empezar</h2></div>
+                        <div class="cards-container" id="col-todo-container"></div>
+                    </section>
+                    <section class="kanban-column" id="col-inprogress">
+                        <div class="kanban-column-header"><h2><i class="fas fa-spinner" style="margin-right: 8px;"></i>En Curso</h2></div>
+                        <div class="cards-container" id="col-inprogress-container"></div>
+                    </section>
+                    <section class="kanban-column" id="col-done">
+                        <div class="kanban-column-header"><h2><i class="fas fa-check-circle" style="margin-right: 8px;"></i>Listo</h2></div>
+                        <div class="cards-container" id="col-done-container"></div>
+                    </section>
+                </main>
+            </div>
+        </main>
+        
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-container" id="details-modal">
+            <div class="modal-header"> <h2 id="modal-title"></h2> <span class="modal-close" id="modal-close-day">×</span> </div>
+            <div class="modal-content"> <div id="modal-topics"></div> <div class="notes-section" style="margin-top: 20px;"> <h3>Mis Anotaciones del Día</h3> <textarea id="modal-notes" placeholder="Escribe aquí tus notas generales para este día..."></textarea> <button id="modal-save-btn">Guardar Nota</button> </div> </div>
+        </div>
+        <div class="modal-overlay" id="topic-plan-overlay"></div>
+        <div class="modal-container" id="topic-plan-modal">
+            <div class="modal-header"> <h2 id="topic-plan-title"></h2> <span class="modal-close" id="modal-close-topic">×</span> </div>
+            <div class="modal-content">
+                <div class="study-flow-diagram">
+                    <div class="step-card step-1"> <div class="step-icon-container"><i class="fas fa-binoculars"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">1</span>VISTA RÁPIDA</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-1-1"><i class="fas fa-list-ul task-icon"></i><span class="task-text">Índice</span><span class="tool-tag tag-madera">MADERA</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-1-2"><i class="fas fa-download task-icon"></i><span class="task-text">Descargar guías</span><span class="optional-tag">* opcional</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-1-3"><i class="fas fa-brain task-icon"></i><span class="task-text">CREA resúmenes + casos con IA (5min)</span><span class="tool-tag tag-ia">IAGOOGLE</span></label></li> </ul> </div> </div>
+                    <div class="parallel-steps-container"> <div class="step-card step-2"> <div class="step-icon-container"><i class="fas fa-magic"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">2</span>CREAR</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-2-1"><i class="fas fa-chalkboard-teacher task-icon"></i><span class="task-text">Presentación</span><span class="tool-tag tag-genspark">Genspark</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-2-2"><i class="fas fa-microphone-alt task-icon"></i><span class="task-text">Podcast MP3</span><span class="tool-tag tag-notebooklm">NOTEBOOKLM</span></label></li> </ul> </div> </div> <div class="step-card step-3"> <div class="step-icon-container"><i class="fas fa-book-reader"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">3</span>LEER</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-3-1"><i class="fas fa-file-alt task-icon"></i><span class="task-text">Leer Resumen</span></label></li> </ul> </div> </div> </div>
+                    <div class="step-card step-4"> <div class="step-icon-container"><i class="fas fa-puzzle-piece"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">4</span>UNIFICAR<span class="subtitle">(resumen + presentación + simular + enlaces)</span></h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-4-1"><i class="fas fa-code task-icon"></i><span class="task-text">HTML</span><span class="tool-tag tag-ia">IAGOOGLE</span></label></li> </ul> </div> </div>
+                    <div class="step-card step-5"> <div class="step-icon-container"><i class="fas fa-tasks"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">5</span>PRACTICAR</h2> <div class="practice-step-layout"> <div class="practice-tasks-column"> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-5-1"><i class="fas fa-notes-medical task-icon"></i><span class="task-text">Realiza CASOS CLÍNICOS</span></label></li> <li><label><input type="checkbox" class="task-checkbox" id="task-5-2"><i class="fas fa-redo-alt task-icon"></i><span class="task-text">Repasar</span><span class="tool-tag tag-genspark">GENSPARK</span><span class="tool-tag tag-madera">MADERAS</span></label></li> </ul> </div> <div class="practice-score-column"> <h3>PUNTUACIÓN</h3> <div class="score-inputs-row"> <div class="score-input-group"><label for="score-aciertos">Aciertos:</label><input type="number" id="score-aciertos" min="0"></div> <div class="score-input-group"><label for="score-reactivos">Reactivos:</label><input type="number" id="score-reactivos" min="0"></div> <div class="score-input-group"><label for="score-percentage">%:</label><input type="text" id="score-percentage" class="percentage-output" readonly value="0%"></div> </div> </div> </div> </div> </div>
+                    <div class="step-card step-6"> <div class="step-icon-container"><i class="fas fa-head-side-headphones"></i></div> <div class="step-content"> <h2 class="step-title"><span class="step-number">6</span>MEMORIZAR</h2> <ul class="step-details"> <li><label><input type="checkbox" class="task-checkbox" id="task-6-1"><i class="fas fa-headphones-alt task-icon"></i><span class="task-text">Escuchar MP3</span></label></li> </ul> </div> </div>
+                </div>
+                <div class="topic-modal-footer"> <button id="topic-finish-btn" class="topic-finish-btn">Terminar Tema</button> </div>
+            </div>
         </div>
     </div>
     
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+        // --- CONFIGURACIÓN DE FIREBASE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4SjKhedm4ZWHed70_sjQgxPokjHvwvUc",
+            authDomain: "frecuencia-vital.firebaseapp.com",
+            projectId: "frecuencia-vital",
+            storageBucket: "frecuencia-vital.appspot.com",
+            messagingSenderId: "492064882273",
+            appId: "1:492064882273:web:46ad9f9a66126bfdb53420",
+            measurementId: "G-0C466YCX31"
+        };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        let currentUser = null;
 
-        const LOCAL_STORAGE_KEY = 'frecuenciaVitalProgress_v7_FinalPlan';
+        // --- DOM Elements ---
+        const loginContainer = document.getElementById('login-container');
+        const mainAppContent = document.getElementById('main-app-content');
+        const loginEmailInput = document.getElementById('login-email');
+        const loginPasswordInput = document.getElementById('login-password');
+        const loginButton = document.getElementById('login-button');
+        const signupButton = document.getElementById('signup-button');
+        const logoutButton = document.getElementById('logout-button');
+        const loginError = document.getElementById('login-error');
 
-        const initializeAppLogic = () => {
+        // --- LÓGICA DE AUTENTICACIÓN ---
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // Usuario ha iniciado sesión
+                loginContainer.style.display = 'none';
+                mainAppContent.style.display = 'flex';
+                currentUser = user;
+                initializeAppLogic(); // Inicia la aplicación principal
+            } else {
+                // Usuario no ha iniciado sesión
+                loginContainer.style.display = 'flex';
+                mainAppContent.style.display = 'none';
+                currentUser = null;
+            }
+        });
+
+        loginButton.addEventListener('click', () => {
+            const email = loginEmailInput.value;
+            const password = loginPasswordInput.value;
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(error => {
+                    loginError.textContent = "Error: " + error.message;
+                });
+        });
+
+        signupButton.addEventListener('click', () => {
+            const email = loginEmailInput.value;
+            const password = loginPasswordInput.value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .catch(error => {
+                    loginError.textContent = "Error: " + error.message;
+                });
+        });
+
+        logoutButton.addEventListener('click', () => {
+            auth.signOut();
+        });
+
+
+        // --- LÓGICA PRINCIPAL DE LA APLICACIÓN ---
+        async function initializeAppLogic() {
+            // ... (El resto del código JavaScript va aquí, sin cambios)
             const subjectToTopicsMap = new Map();
             const motivationalQuotes = [ "La disciplina es el puente entre metas y logros.", "El éxito es la suma de pequeños esfuerzos repetidos día tras día.", "No te detengas hasta que te sientas orgulloso.", "Cree en ti mismo y todo será posible.", "El único modo de hacer un gran trabajo es amar lo que haces." ];
             
@@ -346,54 +505,54 @@
             function generateTopicId(topicName) { return `topic_${topicName.toLowerCase().replace(/[^a-z0-9]/g, '')}`; }
             function getScoreColor(percentage) { if (percentage >= 80) return 'var(--vfd-green)'; if (percentage >= 60) return 'var(--warning-color)'; return 'var(--error-color)'; }
             
-            function loadUserProgress() {
-                const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-                userProgress = savedData ? JSON.parse(savedData) : {};
+            async function loadUserProgress() {
+                if (!currentUser) return;
+                const docRef = db.collection('userProgress').doc(currentUser.uid);
+                const doc = await docRef.get();
+                userProgress = doc.exists ? doc.data() : {};
             }
 
-            function saveData(key, value) {
+            async function saveData(key, value) {
+                if (!currentUser) return;
+                const docRef = db.collection('userProgress').doc(currentUser.uid);
                 const keys = key.split('.');
                 let currentLocal = userProgress;
                 for (let i = 0; i < keys.length - 1; i++) {
                     currentLocal = currentLocal[keys[i]] = currentLocal[keys[i]] || {};
                 }
                 currentLocal[keys[keys.length - 1]] = value;
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userProgress));
+                
+                const payload = {};
+                let currentPayload = payload;
+                for (let i = 0; i < keys.length - 1; i++) {
+                    currentPayload[keys[i]] = {};
+                    currentPayload = currentPayload[keys[i]];
+                }
+                currentPayload[keys[keys.length - 1]] = value;
+                
+                await docRef.set(payload, { merge: true });
             }
             
-            function seedInitialProgress() {
-                const initialData = {
-                    "GENÉTICA": { "Síndrome de Down": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Síndrome de Klinefelter": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Síndrome de Turner": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Síndrome de Marfan": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Enfermedad de Wilson": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Síndrome de Dravet": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Síndrome de Lynch": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Síndrome de Peutz Jegher": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}, "Von Hippel Lindau": {aciertos:0,reactivos:0,completedTasks:10,totalTasks:10} },
-                    "GERIATRÍA": { "Valoración geriátrica": {aciertos:18,reactivos:21,completedTasks:10,totalTasks:10}, "Alzheimer": {aciertos:12,reactivos:15,completedTasks:10,totalTasks:10}, "Delirium": {aciertos:7,reactivos:15,completedTasks:10,totalTasks:10}, "Demencia vascular": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Deterioro cognitivo": {aciertos:15,reactivos:21,completedTasks:10,totalTasks:10}, "Insomnio en el adulto mayor": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Síndrome de caídas": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Síndrome de fragilidad": {aciertos:15,reactivos:21,completedTasks:10,totalTasks:10}, "Maltrato en el adulto mayor": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Colapso del cuidador": {aciertos:15,reactivos:21,completedTasks:10,totalTasks:10}, "Depresión mayor": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10} },
-                    "PSIQUIATRÍA": { "Abuso de sustancias": {aciertos:11,reactivos:15,completedTasks:10,totalTasks:10}, "Abstinencia alcohólica": {aciertos:12,reactivos:12,completedTasks:10,totalTasks:10}, "Trastorno por alcohol": {aciertos:9,reactivos:15,completedTasks:10,totalTasks:10}, "Esquizofrenia": {aciertos:10,reactivos:15,completedTasks:10,totalTasks:10}, "Estrés post traumático": {aciertos:3,reactivos:9,completedTasks:10,totalTasks:10}, "Trastornos del sueño": {aciertos:10,reactivos:15,completedTasks:10,totalTasks:10}, "Intento de suicidio": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Tdah": {aciertos:8,reactivos:12,completedTasks:10,totalTasks:10}, "Trastorno bipolar": {aciertos:13,reactivos:15,completedTasks:10,totalTasks:10}, "Trastornos de ansiedad": {aciertos:10,reactivos:15,completedTasks:10,totalTasks:10}, "Trastornos de conducta alimentaria": {aciertos:13,reactivos:15,completedTasks:10,totalTasks:10}, "Consumo de mariguana": {aciertos:14,reactivos:15,completedTasks:10,totalTasks:10}, "Violencia contra la mujer": {aciertos:12,reactivos:15,completedTasks:10,totalTasks:10}, "Autismo": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Síndrome de Munchausen": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}},
-                    "DERMATOLOGÍA": { "Dermatitis atópica": {aciertos:18,reactivos:18,completedTasks:10,totalTasks:10}, "Dermatofitosis": {aciertos:16,reactivos:18,completedTasks:10,totalTasks:10}, "SSJ y NET": {aciertos:12,reactivos:12,completedTasks:10,totalTasks:10}, "Escabiosis - Sarna": {aciertos:12,reactivos:12,completedTasks:10,totalTasks:10}, "Impétigo": {aciertos:7,reactivos:12,completedTasks:10,totalTasks:10}, "Melanoma": {aciertos:8,reactivos:12,completedTasks:10,totalTasks:10}, "Psoriasis": {aciertos:8,reactivos:12,completedTasks:10,totalTasks:10}, "Carcinoma basocelular": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Acné vulgar": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Erisipela": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Urticaria": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Dermatitis por contacto": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Pediculosis capitis": {aciertos:11,reactivos:12,completedTasks:10,totalTasks:10}, "Síndrome de Ritter": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Carcinoma espinocelular": {aciertos:9,reactivos:12,completedTasks:10,totalTasks:10} },
-                    "NEFROLOGÍA": { "Lesión renal aguda": {aciertos:7,reactivos:12,completedTasks:10,totalTasks:10}, "Enfermedad renal crónica": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Nefropatía diabética": {aciertos:7,reactivos:12,completedTasks:10,totalTasks:10}, "Síndrome nefrítico y nefrootico": {aciertos:17,reactivos:24,completedTasks:10,totalTasks:10}, "Trastorno ácido-base": {aciertos:11,reactivos:12,completedTasks:10,totalTasks:10}, "Nefritis lúpica": {aciertos:9,reactivos:12,completedTasks:10,totalTasks:10} },
-                    "REUMATOLOGÍA": { "Artritis reactiva": {aciertos:8,reactivos:12,completedTasks:10,totalTasks:10}, "Artritis reumatoide": {aciertos:10,reactivos:15,completedTasks:10,totalTasks:10}, "Espondilitis anquilosante": {aciertos:11,reactivos:12,completedTasks:10,totalTasks:10}, "Gota": {aciertos:6,reactivos:12,completedTasks:10,totalTasks:10}, "Lupus eritematoso sistémico": {aciertos:12,reactivos:15,completedTasks:10,totalTasks:10}, "Arteritis de la temporal": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Granulomatosis de Wegener": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Artritis séptica": {aciertos:9,reactivos:12,completedTasks:10,totalTasks:10} },
-                    "NEUMOLOGÍA": { "Asma en pediátricos": {aciertos:11,reactivos:21,completedTasks:10,totalTasks:10}, "Exacerbación de asma": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Cáncer de pulmón": {aciertos:4,reactivos:12,completedTasks:10,totalTasks:10}, "Epoc": {aciertos:3,reactivos:12,completedTasks:10,totalTasks:10}, "Derrame pleural": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Tabaquismo": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10} },
-                    "NEUROLOGÍA": { "Cefalea Secundarias": {aciertos:12,reactivos:12,completedTasks:10,totalTasks:10}, "Cefaleas primarias": {aciertos:9,reactivos:12,completedTasks:10,totalTasks:10}, "Crisis convulsivas": {aciertos:4,reactivos:12,completedTasks:10,totalTasks:10}, "Estatus epiléptico": {aciertos:9,reactivos:12,completedTasks:10,totalTasks:10}, "Crisis febriles": {aciertos:5,reactivos:12,completedTasks:10,totalTasks:10}, "Enfermedad de Parkinson": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Evc isquémico": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Hemorragia subaracnoidea": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Guillain Barré": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Esclerosis múltiple": {aciertos:5,reactivos:12,completedTasks:10,totalTasks:10}, "Evc hemorrágico": {aciertos:6,reactivos:12,completedTasks:10,totalTasks:10}, "Miastenia gravis": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}, "Muerte encefálica": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10} },
-                    "HEMATOLOGÍA": { "Anemia generalidades": {aciertos:8,reactivos:18,completedTasks:10,totalTasks:10}, "Anemia ferropénica Adultos": {aciertos:8,reactivos:12,completedTasks:10,totalTasks:10}, "Leucemias": {aciertos:8,reactivos:12,completedTasks:10,totalTasks:10}, "Linfomas": {aciertos:10,reactivos:15,completedTasks:10,totalTasks:10}, "Trombocitopenia inmune": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10} },
-                    "INFECTOLOGÍA": { "Brucelosis": {aciertos:3,reactivos:3,completedTasks:10,totalTasks:10}, "Cisticercosis": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Clostridium": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Diarrea aguda en adultos": {aciertos:9,reactivos:12,completedTasks:10,totalTasks:10}, "Diarrea en niños": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Chinkungunya": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Dengue": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Zika": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Paludismo": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Salmonella Fiebre tifoidea": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Sepsis y choque séptico": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Tuberculosis pulmonar": {aciertos:14,reactivos:21,completedTasks:10,totalTasks:10}, "ETS Generalidades": {aciertos:14,reactivos:18,completedTasks:10,totalTasks:10}, "VIH Adultos": {aciertos:16,reactivos:21,completedTasks:10,totalTasks:10}, "VIH Madre e hijo": {aciertos:17,reactivos:21,completedTasks:10,totalTasks:10}, "RV yOportunistas": {aciertos:14,reactivos:21,completedTasks:10,totalTasks:10}, "Sarcoma de Kaposi": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Giardiasis": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Tuberculosis extrapulmonar": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Lepra": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}, "Medios de cultivo": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}, "Actinomicosis": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Amebiasis intestinal": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Anquilostomiasis": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Ascariasis": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Aspergilosis": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Coccidioidomicosis": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Difteria": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Enfermedad de Chagas": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Enfermedad de Lyme": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Estrongiloidiasis": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Fascitis necrosante": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Fiebre de origen desconocido": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}, "Filariasis linfática": {aciertos:4,reactivos:9,completedTasks:10,totalTasks:10}, "Filariasis ocular Loasis": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Infecciones odontogénicas": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Leishmaniasis": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Leptospirosis": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Mucormicosis": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Oncocercosis": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Oxiuriasis o enterobiasis": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}, "Poliomielitis": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Rabia": {aciertos:7,reactivos:9,completedTasks:10,totalTasks:10}, "Tricuriasis": {aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}, "Triquinosis": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Neumonía adquirida en la comunidad": {aciertos:3,reactivos:12,completedTasks:10,totalTasks:10}, "Neumonía bacteriana adquirida en la comunidad Niños": {aciertos:7,reactivos:12,completedTasks:10,totalTasks:10}, "Influenza": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Meningitis": {aciertos:10,reactivos:12,completedTasks:10,totalTasks:10}, "Encefalitis viral": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}, "Absceso cerebral": {aciertos:8,reactivos:9,completedTasks:10,totalTasks:10} },
-                    "ENDOCRINOLOGÍA": { "Diabetes mellitus": {aciertos:12,reactivos:15,completedTasks:10,totalTasks:10}, "Prediabetes": {aciertos:15,reactivos:15,completedTasks:10,totalTasks:10}, "Diabetes en el adulto mayor": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Diabetes en pediatría": {aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}, "Cetoacidosis diabética y EHH": {aciertos:13,reactivos:18,completedTasks:10,totalTasks:10}, "Hipoglucemia": {aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}, "Enfermedad de Addison": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Enfermedad de Cushing / Síndrome de Cushing": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Hiperprolactinemia": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Acromegalia": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Feocromocitoma": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Hiperaldosteronismo": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Hiperparatiroidismo": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Neoplasia endocrina múltple": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Alopecia endocrina": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10} },
+            async function seedInitialProgress() {
+                const initialData = {"GENÉTICA":{"Síndrome de Down":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Síndrome de Klinefelter":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Síndrome de Turner":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Síndrome de Marfan":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Enfermedad de Wilson":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Síndrome de Dravet":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Síndrome de Lynch":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Síndrome de Peutz Jegher":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10},"Von Hippel Lindau":{aciertos:0,reactivos:0,completedTasks:10,totalTasks:10}},"GERIATRÍA":{"Valoración geriátrica":{aciertos:18,reactivos:21,completedTasks:10,totalTasks:10},"Alzheimer":{aciertos:12,reactivos:15,completedTasks:10,totalTasks:10},"Delirium":{aciertos:7,reactivos:15,completedTasks:10,totalTasks:10},"Demencia vascular":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Deterioro cognitivo":{aciertos:15,reactivos:21,completedTasks:10,totalTasks:10},"Insomnio en el adulto mayor":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Síndrome de caídas":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Síndrome de fragilidad":{aciertos:15,reactivos:21,completedTasks:10,totalTasks:10},"Maltrato en el adulto mayor":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Colapso del cuidador":{aciertos:15,reactivos:21,completedTasks:10,totalTasks:10},"Depresión mayor":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10}},"PSIQUIATRÍA":{"Abuso de sustancias":{aciertos:11,reactivos:15,completedTasks:10,totalTasks:10},"Abstinencia alcohólica":{aciertos:12,reactivos:12,completedTasks:10,totalTasks:10},"Trastorno por alcohol":{aciertos:9,reactivos:15,completedTasks:10,totalTasks:10},"Esquizofrenia":{aciertos:10,reactivos:15,completedTasks:10,totalTasks:10},"Estrés post traumático":{aciertos:3,reactivos:9,completedTasks:10,totalTasks:10},"Trastornos del sueño":{aciertos:10,reactivos:15,completedTasks:10,totalTasks:10},"Intento de suicidio":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Tdah":{aciertos:8,reactivos:12,completedTasks:10,totalTasks:10},"Trastorno bipolar":{aciertos:13,reactivos:15,completedTasks:10,totalTasks:10},"Trastornos de ansiedad":{aciertos:10,reactivos:15,completedTasks:10,totalTasks:10},"Trastornos de conducta alimentaria":{aciertos:13,reactivos:15,completedTasks:10,totalTasks:10},"Consumo de mariguana":{aciertos:14,reactivos:15,completedTasks:10,totalTasks:10},"Violencia contra la mujer":{aciertos:12,reactivos:15,completedTasks:10,totalTasks:10},"Autismo":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Síndrome de Munchausen":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}},"DERMATOLOGÍA":{"Dermatitis atópica":{aciertos:18,reactivos:18,completedTasks:10,totalTasks:10},"Dermatofitosis":{aciertos:16,reactivos:18,completedTasks:10,totalTasks:10},"SSJ y NET":{aciertos:12,reactivos:12,completedTasks:10,totalTasks:10},"Escabiosis - Sarna":{aciertos:12,reactivos:12,completedTasks:10,totalTasks:10},"Impétigo":{aciertos:7,reactivos:12,completedTasks:10,totalTasks:10},"Melanoma":{aciertos:8,reactivos:12,completedTasks:10,totalTasks:10},"Psoriasis":{aciertos:8,reactivos:12,completedTasks:10,totalTasks:10},"Carcinoma basocelular":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Acné vulgar":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Erisipela":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Urticaria":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Dermatitis por contacto":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Pediculosis capitis":{aciertos:11,reactivos:12,completedTasks:10,totalTasks:10},"Síndrome de Ritter":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Carcinoma espinocelular":{aciertos:9,reactivos:12,completedTasks:10,totalTasks:10}},"NEFROLOGÍA":{"Lesión renal aguda":{aciertos:7,reactivos:12,completedTasks:10,totalTasks:10},"Enfermedad renal crónica":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Nefropatía diabética":{aciertos:7,reactivos:12,completedTasks:10,totalTasks:10},"Síndrome nefrítico y nefrootico":{aciertos:17,reactivos:24,completedTasks:10,totalTasks:10},"Trastorno ácido-base":{aciertos:11,reactivos:12,completedTasks:10,totalTasks:10},"Nefritis lúpica":{aciertos:9,reactivos:12,completedTasks:10,totalTasks:10}},"REUMATOLOGÍA":{"Artritis reactiva":{aciertos:8,reactivos:12,completedTasks:10,totalTasks:10},"Artritis reumatoide":{aciertos:10,reactivos:15,completedTasks:10,totalTasks:10},"Espondilitis anquilosante":{aciertos:11,reactivos:12,completedTasks:10,totalTasks:10},"Gota":{aciertos:6,reactivos:12,completedTasks:10,totalTasks:10},"Lupus eritematoso sistémico":{aciertos:12,reactivos:15,completedTasks:10,totalTasks:10},"Arteritis de la temporal":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Granulomatosis de Wegener":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Artritis séptica":{aciertos:9,reactivos:12,completedTasks:10,totalTasks:10}},"NEUMOLOGÍA":{"Asma en pediátricos":{aciertos:11,reactivos:21,completedTasks:10,totalTasks:10},"Exacerbación de asma":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Cáncer de pulmón":{aciertos:4,reactivos:12,completedTasks:10,totalTasks:10},"Epoc":{aciertos:3,reactivos:12,completedTasks:10,totalTasks:10},"Derrame pleural":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Tabaquismo":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}},"NEUROLOGÍA":{"Cefalea Secundarias":{aciertos:12,reactivos:12,completedTasks:10,totalTasks:10},"Cefaleas primarias":{aciertos:9,reactivos:12,completedTasks:10,totalTasks:10},"Crisis convulsivas":{aciertos:4,reactivos:12,completedTasks:10,totalTasks:10},"Estatus epiléptico":{aciertos:9,reactivos:12,completedTasks:10,totalTasks:10},"Crisis febriles":{aciertos:5,reactivos:12,completedTasks:10,totalTasks:10},"Enfermedad de Parkinson":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Evc isquémico":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Hemorragia subaracnoidea":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Guillain Barré":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Esclerosis múltiple":{aciertos:5,reactivos:12,completedTasks:10,totalTasks:10},"Evc hemorrágico":{aciertos:6,reactivos:12,completedTasks:10,totalTasks:10},"Miastenia gravis":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10},"Muerte encefálica":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}},"HEMATOLOGÍA":{"Anemia generalidades":{aciertos:8,reactivos:18,completedTasks:10,totalTasks:10},"Anemia ferropénica Adultos":{aciertos:8,reactivos:12,completedTasks:10,totalTasks:10},"Leucemias":{aciertos:8,reactivos:12,completedTasks:10,totalTasks:10},"Linfomas":{aciertos:10,reactivos:15,completedTasks:10,totalTasks:10},"Trombocitopenia inmune":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10}},"INFECTOLOGÍA":{"Brucelosis":{aciertos:3,reactivos:3,completedTasks:10,totalTasks:10},"Cisticercosis":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Clostridium":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Diarrea aguda en adultos":{aciertos:9,reactivos:12,completedTasks:10,totalTasks:10},"Diarrea en niños":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Chinkungunya":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Dengue":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Zika":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Paludismo":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Salmonella Fiebre tifoidea":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Sepsis y choque séptico":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Tuberculosis pulmonar":{aciertos:14,reactivos:21,completedTasks:10,totalTasks:10},"ETS Generalidades":{aciertos:14,reactivos:18,completedTasks:10,totalTasks:10},"VIH Adultos":{aciertos:16,reactivos:21,completedTasks:10,totalTasks:10},"VIH Madre e hijo":{aciertos:17,reactivos:21,completedTasks:10,totalTasks:10},"RV yOportunistas":{aciertos:14,reactivos:21,completedTasks:10,totalTasks:10},"Sarcoma de Kaposi":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Giardiasis":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Tuberculosis extrapulmonar":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Lepra":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10},"Medios de cultivo":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10},"Actinomicosis":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Amebiasis intestinal":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Anquilostomiasis":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Ascariasis":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Aspergilosis":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Coccidioidomicosis":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Difteria":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Enfermedad de Chagas":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Enfermedad de Lyme":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Estrongiloidiasis":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Fascitis necrosante":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Fiebre de origen desconocido":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10},"Filariasis linfática":{aciertos:4,reactivos:9,completedTasks:10,totalTasks:10},"Filariasis ocular Loasis":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Infecciones odontogénicas":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Leishmaniasis":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Leptospirosis":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Mucormicosis":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Oncocercosis":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Oxiuriasis o enterobiasis":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10},"Poliomielitis":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Rabia":{aciertos:7,reactivos:9,completedTasks:10,totalTasks:10},"Tricuriasis":{aciertos:9,reactivos:9,completedTasks:10,totalTasks:10},"Triquinosis":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Neumonía adquirida en la comunidad":{aciertos:3,reactivos:12,completedTasks:10,totalTasks:10},"Neumonía bacteriana adquirida en la comunidad Niños":{aciertos:7,reactivos:12,completedTasks:10,totalTasks:10},"Influenza":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Meningitis":{aciertos:10,reactivos:12,completedTasks:10,totalTasks:10},"Encefalitis viral":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10},"Absceso cerebral":{aciertos:8,reactivos:9,completedTasks:10,totalTasks:10}},"ENDOCRINOLOGÍA":{"Diabetes mellitus":{aciertos:12,reactivos:15,completedTasks:10,totalTasks:10},"Prediabetes":{aciertos:15,reactivos:15,completedTasks:10,totalTasks:10},"Diabetes en el adulto mayor":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10},"Diabetes en pediatría":{aciertos:5,reactivos:9,completedTasks:10,totalTasks:10},"Cetoacidosis diabética y EHH":{aciertos:13,reactivos:18,completedTasks:10,totalTasks:10},"Hipoglucemia":{aciertos:6,reactivos:9,completedTasks:10,totalTasks:10}},
                     "UROLOGÍA": { "Escroto agudo": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Torsión testicular": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Hiperplasia prostática benigna": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Cáncer de próstata": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Pielonefritis aguda": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Infección de tracto urinario": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Urolitiasis": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Orquiepididimitis": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Cáncer testicular": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Disfunción eréctil": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Estenosis del meato urinario": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Hidrocele": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Varicocele": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Prostatitis aguda": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Cáncer de vejiga": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Cáncer renal": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Incontinencia urinaria": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10}, "Retención aguda de orina": {aciertos:0,reactivos:0,completedTasks:0,totalTasks:10} }
                 };
 
-                if (!userProgress.topicData) {
-                    userProgress.topicData = {};
-                    for (const specialty in initialData) {
-                        for (const topic in initialData[specialty]) {
-                            const topicId = generateTopicId(topic);
-                            const data = initialData[specialty][topic];
-                            userProgress.topicData[topicId] = {
-                                scoreAciertos: data.aciertos,
-                                scoreReactivos: data.reactivos,
-                            };
-                            ALL_TASK_IDS.forEach((taskId, index) => {
-                                userProgress.topicData[topicId][taskId] = (data.completedTasks > index);
-                            });
-                        }
+                const topicDataToSave = {};
+                for (const specialty in initialData) {
+                    for (const topic in initialData[specialty]) {
+                        const topicId = generateTopicId(topic);
+                        const data = initialData[specialty][topic];
+                        topicDataToSave[topicId] = {
+                            scoreAciertos: data.aciertos,
+                            scoreReactivos: data.reactivos,
+                        };
+                        ALL_TASK_IDS.forEach((taskId, index) => {
+                            topicDataToSave[topicId][taskId] = (data.completedTasks > index);
+                        });
                     }
-                    saveData('topicData', userProgress.topicData);
                 }
+                await saveData('topicData', topicDataToSave);
             }
             
             function generateStudyPlan() {
@@ -467,7 +626,7 @@
                 };
                 
                 let allTopicsToSchedulePart2 = [];
-                Object.keys(topicsBySpecialtyPart2).forEach(specialty => {
+                 Object.keys(topicsBySpecialtyPart2).forEach(specialty => {
                     topicsBySpecialtyPart2[specialty].forEach(topic => {
                         allTopicsToSchedulePart2.push({ specialty, topic });
                     });
@@ -503,7 +662,6 @@
                     currentDatePart2.setDate(currentDatePart2.getDate() + 1);
                 }
 
-                // Unir las partes y añadir los días vacíos finales
                 let finalPlannedDays = [...plannedDaysPart1, ...plannedDaysPart2];
                 let lastPlannedDate = new Date(currentDatePart2.setDate(currentDatePart2.getDate() - 1));
                 let finalEndDate = new Date('2025-09-30');
@@ -603,11 +761,11 @@
             function createKanbanCardHTML(topicName, topicId, specialtyName) { const { completionPercentage, scorePercentage } = getTopicProgress(topicId); const scoreColor = getScoreColor(scorePercentage); const state = getTopicKanbanState(topicId); let statusColorVar = '--color-todo'; if (state === 'inprogress') statusColorVar = '--color-inprogress'; if (state === 'done') statusColorVar = '--color-done'; return `<article class="kanban-card" data-topic-id="${topicId}" data-topic-name="${topicName}" data-specialty="${specialtyName}" style="border-left: 4px solid var(${statusColorVar});"><div class="card-summary"><div class="card-topic-name">${topicName}</div><div class="card-progress-display"><div class="card-progress-bar-container"><div class="card-progress-bar" style="width: ${completionPercentage}%; background-color: var(${statusColorVar});"></div></div><span class="card-progress-text">${completionPercentage.toFixed(0)}%</span><span class="card-score-text" style="color: ${scoreColor}">${scorePercentage.toFixed(0)}%</span></div></div></article>`; }
             function showDayModal(dateString) { const dayData = studyPlan.find(d => d.date === dateString); const date = new Date(dateString + "T00:00:00"); dayModalTitle.textContent = date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }); let topicsHTML = '<ul>'; if (dayData && dayData.blocks) { dayData.blocks.forEach(block => { if (block.subject) { const score = calculateSubjectScore(block.subject); const scoreText = score !== null ? `<span class="subject-score">(${score}%)</span>` : ''; topicsHTML += `<li><span class="subject-title">${block.subject}${scoreText}</span></li>`; } if(block.topics) { topicsHTML += block.topics.map(topic => createTopicListItem(topic)).join(''); } }); } topicsHTML += '</ul>'; dayModalTopicsContainer.innerHTML = topicsHTML; dayModalNotes.value = getData(`dayNotes.${dateString}`, ''); dayModal.dataset.currentDate = dateString; dayModalOverlay.classList.add('visible'); dayModal.classList.add('visible'); }
             function closeDayModal() { dayModalOverlay.classList.remove('visible'); dayModal.classList.remove('visible'); }
-            function saveDayNote() { const dateString = dayModal.dataset.currentDate; if (dateString) { saveData(`dayNotes.${dateString}`, dayModalNotes.value); } closeDayModal(); }
+            async function saveDayNote() { const dateString = dayModal.dataset.currentDate; if (dateString) { await saveData(`dayNotes.${dateString}`, dayModalNotes.value); } closeDayModal(); }
             function showTopicPlan(topicId, topicName) { topicModal.dataset.currentTopicId = topicId; topicModalTitle.textContent = topicName; loadTopicState(topicId); topicModalOverlay.classList.add('visible'); topicModal.classList.add('visible'); }
             function closeTopicModal() { const topicId = topicModal.dataset.currentTopicId; topicModalOverlay.classList.remove('visible'); topicModal.classList.remove('visible'); if (topicId) { updateUIForTopic(topicId); } }
             function loadTopicState(topicId) { topicTaskCheckboxes.forEach(checkbox => { checkbox.checked = getData(`topicData.${topicId}.${checkbox.id}`) === true; }); aciertosInput.value = getData(`topicData.${topicId}.scoreAciertos`, ''); reactivosInput.value = getData(`topicData.${topicId}.scoreReactivos`, ''); updateScorePercentage(); updateAllStepCardsStatus(); }
-            function saveTopicState(key, value) { const topicId = topicModal.dataset.currentTopicId; if (topicId) { saveData(`topicData.${topicId}.${key}`, value); } }
+            async function saveTopicState(key, value) { const topicId = topicModal.dataset.currentTopicId; if (topicId) { await saveData(`topicData.${topicId}.${key}`, value); } }
             function updateScorePercentage() { const aciertos = parseInt(aciertosInput.value) || 0; const reactivos = parseInt(reactivosInput.value) || 0; let percentage = 0; if (reactivos > 0) { percentage = (aciertos / reactivos) * 100; } const color = getScoreColor(percentage); percentageOutput.value = percentage.toFixed(2) + "%"; percentageOutput.style.color = color; }
             function updateStepCardStatus(cardElement) { const tasksInCard = cardElement.querySelectorAll('.task-checkbox'); const allTasksCompleted = Array.from(tasksInCard).every(task => task.checked); cardElement.classList.toggle('completed', allTasksCompleted); }
             function updateAllStepCardsStatus() { topicStepCards.forEach(updateStepCardStatus); }
@@ -618,14 +776,14 @@
             
             let draggedItem = null; let lastDragOverCell = null; let lastDragOverTopic = null; function clearDragStyles() { if (lastDragOverCell) lastDragOverCell.classList.remove('drag-over'); if (lastDragOverTopic) lastDragOverTopic.classList.remove('drag-over-top', 'drag-over-bottom'); lastDragOverCell = null; lastDragOverTopic = null; }
             
-            function main() {
+            async function main() {
                 assignDOMelements();
                 displayDailyQuote();
                 
-                loadUserProgress();
+                await loadUserProgress();
                 
                 if (!getData('topicData')) {
-                    seedInitialProgress();
+                    await seedInitialProgress();
                 }
 
                 const userPlan = getData('studyPlan');
@@ -635,11 +793,11 @@
                     studyPlan = userPlan; 
                 } else { 
                     studyPlan = defaultPlan; 
-                    saveData('studyPlan', defaultPlan); 
+                    await saveData('studyPlan', defaultPlan); 
                 }
 
                 countdownTargetDateStr = getData('countdownTarget') || '2025-09-23';
-                saveData('countdownTarget', countdownTargetDateStr);
+                await saveData('countdownTarget', countdownTargetDateStr);
 
                 countdownDatePicker.value = countdownTargetDateStr;
                 startCountdown();
@@ -650,27 +808,22 @@
                 calendarContainer.addEventListener('click', e => { const topicLi = e.target.closest('.topic-item'); if (topicLi && !draggedItem) { const { topicId, topicName } = topicLi.dataset; showTopicPlan(topicId, topicName); return; } const cell = e.target.closest('.day-cell:not(.empty)'); if (cell) showDayModal(cell.dataset.date); });
                 dayModalTopicsContainer.addEventListener('click', e => { const topicLi = e.target.closest('.topic-item'); if (topicLi) { const { topicId, topicName } = topicLi.dataset; showTopicPlan(topicId, topicName); } });
                 editCountdownBtn.addEventListener('click', () => { countdownEditor.style.display = countdownEditor.style.display === 'flex' ? 'none' : 'flex'; });
-                saveCountdownBtn.addEventListener('click', () => { const newDate = countdownDatePicker.value; if (newDate) { countdownTargetDateStr = newDate; saveData('countdownTarget', newDate); startCountdown(); populateCalendar(); countdownEditor.style.display = 'none'; } });
+                saveCountdownBtn.addEventListener('click', async () => { const newDate = countdownDatePicker.value; if (newDate) { countdownTargetDateStr = newDate; await saveData('countdownTarget', newDate); startCountdown(); populateCalendar(); countdownEditor.style.display = 'none'; } });
                 dayModal.querySelector('#modal-close-day').addEventListener('click', closeDayModal);
                 dayModalOverlay.addEventListener('click', closeDayModal);
                 topicModal.querySelector('#modal-close-topic').addEventListener('click', closeTopicModal);
                 finishTopicButton.addEventListener('click', finishTopicSession);
                 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (topicModal.classList.contains('visible')) closeTopicModal(); else if (dayModal.classList.contains('visible')) closeDayModal(); } });
                 saveNoteButton.addEventListener('click', saveDayNote);
-                topicTaskCheckboxes.forEach(checkbox => { checkbox.addEventListener('change', function() { const topicId = topicModal.dataset.currentTopicId; saveTopicState(this.id, this.checked); updateStepCardStatus(this.closest('.step-card')); updateUIForTopic(topicId); }); });
-                aciertosInput.addEventListener('input', () => { const topicId = topicModal.dataset.currentTopicId; saveTopicState('scoreAciertos', aciertosInput.value); updateScorePercentage(); updateUIForTopic(topicId); });
-                reactivosInput.addEventListener('input', () => { const topicId = topicModal.dataset.currentTopicId; saveTopicState('scoreReactivos', reactivosInput.value); updateScorePercentage(); updateUIForTopic(topicId); });
+                topicTaskCheckboxes.forEach(checkbox => { checkbox.addEventListener('change', async function() { const topicId = topicModal.dataset.currentTopicId; await saveTopicState(this.id, this.checked); updateStepCardStatus(this.closest('.step-card')); updateUIForTopic(topicId); }); });
+                aciertosInput.addEventListener('input', async () => { const topicId = topicModal.dataset.currentTopicId; await saveTopicState('scoreAciertos', aciertosInput.value); updateScorePercentage(); updateUIForTopic(topicId); });
+                reactivosInput.addEventListener('input', async () => { const topicId = topicModal.dataset.currentTopicId; await saveTopicState('scoreReactivos', reactivosInput.value); updateScorePercentage(); updateUIForTopic(topicId); });
                 calendarContainer.addEventListener('dragstart', e => { if (e.target.classList.contains('topic-item')) { draggedItem = e.target; const topicName = draggedItem.dataset.topicName; const subjectTitle = getSubjectForTopic(topicName); e.dataTransfer.setData('application/json', JSON.stringify({ topicName: topicName, sourceSubject: subjectTitle })); setTimeout(() => e.target.classList.add('dragging'), 0); } });
                 calendarContainer.addEventListener('dragend', e => { if (draggedItem) { draggedItem.classList.remove('dragging'); draggedItem = null; clearDragStyles(); } });
                 calendarContainer.addEventListener('dragover', e => { e.preventDefault(); const targetCell = e.target.closest('.day-cell:not(.empty)'); if (!targetCell || !draggedItem) { clearDragStyles(); return; } const sourceDate = draggedItem.closest('.day-cell').dataset.date; const targetDate = targetCell.dataset.date; clearDragStyles(); if (sourceDate === targetDate) { const targetTopic = e.target.closest('.topic-item'); if (targetTopic && targetTopic !== draggedItem) { lastDragOverTopic = targetTopic; const rect = targetTopic.getBoundingClientRect(); const midpointY = rect.top + rect.height / 2; if (e.clientY < midpointY) { targetTopic.classList.add('drag-over-top'); } else { targetTopic.classList.add('drag-over-bottom'); } } } else { lastDragOverCell = targetCell; targetCell.classList.add('drag-over'); } });
-                calendarContainer.addEventListener('drop', e => { e.preventDefault(); if (!draggedItem) return; const targetCell = e.target.closest('.day-cell'); if (!targetCell || targetCell.classList.contains('empty')) { clearDragStyles(); return; } const sourceCell = draggedItem.closest('.day-cell'); const sourceDate = sourceCell.dataset.date; const targetDate = targetCell.dataset.date; const { topicName, sourceSubject } = JSON.parse(e.dataTransfer.getData('application/json')); const sourceDay = studyPlan.find(d => d.date === sourceDate); if (!sourceDay) return; let removed = false; sourceDay.blocks.forEach(block => { if (block.topics) { const topicIndex = block.topics.indexOf(topicName); if (topicIndex > -1) { block.topics.splice(topicIndex, 1); removed = true; } } }); if (!removed) return; let targetDay = studyPlan.find(d => d.date === targetDate); if (!targetDay) { targetDay = { date: targetDate, blocks: [{ topics: [] }] }; studyPlan.push(targetDay); } let targetBlock = targetDay.blocks.find(b => getSubjectForTopic(b.topics?.[0]) === sourceSubject || b.subject === sourceSubject); if (!targetBlock) { targetBlock = { topics: [] }; targetDay.blocks.unshift(targetBlock); } const targetTopicEl = e.target.closest('.topic-item'); if (targetTopicEl && sourceDate === targetDate) { const targetTopicName = targetTopicEl.dataset.topicName; const rect = targetTopicEl.getBoundingClientRect(); const midpointY = rect.top + rect.height / 2; const insertBefore = e.clientY < midpointY; const targetIndex = targetBlock.topics.indexOf(targetTopicName); targetBlock.topics.splice(insertBefore ? targetIndex : targetIndex + 1, 0, topicName); } else { targetBlock.topics.push(topicName); } studyPlan.forEach(day => { day.blocks = day.blocks.filter(block => (block.subject && block.topics && block.topics.length > 0) || (!block.subject && block.topics && block.topics.length > 0) || (block.subject && !block.topics)); }); studyPlan = studyPlan.filter(day => day.blocks.length > 0 && day.blocks.some(b => (b.topics && b.topics.length > 0) || b.subject)); studyPlan.sort((a, b) => new Date(a.date) - new Date(b.date)); clearDragStyles(); saveData('studyPlan', studyPlan); populateCalendar(); });
+                calendarContainer.addEventListener('drop', async e => { e.preventDefault(); if (!draggedItem) return; const targetCell = e.target.closest('.day-cell'); if (!targetCell || targetCell.classList.contains('empty')) { clearDragStyles(); return; } const sourceCell = draggedItem.closest('.day-cell'); const sourceDate = sourceCell.dataset.date; const targetDate = targetCell.dataset.date; const { topicName, sourceSubject } = JSON.parse(e.dataTransfer.getData('application/json')); const sourceDay = studyPlan.find(d => d.date === sourceDate); if (!sourceDay) return; let removed = false; sourceDay.blocks.forEach(block => { if (block.topics) { const topicIndex = block.topics.indexOf(topicName); if (topicIndex > -1) { block.topics.splice(topicIndex, 1); removed = true; } } }); if (!removed) return; let targetDay = studyPlan.find(d => d.date === targetDate); if (!targetDay) { targetDay = { date: targetDate, blocks: [{ topics: [] }] }; studyPlan.push(targetDay); } let targetBlock = targetDay.blocks.find(b => getSubjectForTopic(b.topics?.[0]) === sourceSubject || b.subject === sourceSubject); if (!targetBlock) { targetBlock = { topics: [] }; targetDay.blocks.unshift(targetBlock); } const targetTopicEl = e.target.closest('.topic-item'); if (targetTopicEl && sourceDate === targetDate) { const targetTopicName = targetTopicEl.dataset.topicName; const rect = targetTopicEl.getBoundingClientRect(); const midpointY = rect.top + rect.height / 2; const insertBefore = e.clientY < midpointY; const targetIndex = targetBlock.topics.indexOf(targetTopicName); targetBlock.topics.splice(insertBefore ? targetIndex : targetIndex + 1, 0, topicName); } else { targetBlock.topics.push(topicName); } studyPlan.forEach(day => { day.blocks = day.blocks.filter(block => (block.subject && block.topics && block.topics.length > 0) || (!block.subject && block.topics && block.topics.length > 0) || (block.subject && !block.topics)); }); studyPlan = studyPlan.filter(day => day.blocks.length > 0 && day.blocks.some(b => (b.topics && b.topics.length > 0) || b.subject)); studyPlan.sort((a, b) => new Date(a.date) - new Date(b.date)); clearDragStyles(); await saveData('studyPlan', studyPlan); populateCalendar(); });
             }
-            
-            main();
-        };
-
-        initializeAppLogic();
-    });
+        }
     </script>
 </body>
 </html>
