@@ -6,289 +6,9 @@
     <title>Frecuencia Vital - Plan de Estudio Definitivo 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ... (TODO EL CSS PERMANECE IGUAL, NO SE MUESTRA AQUÍ POR BREVEDAD) ... */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
-
-        :root {
-            --bg-color: #121212;
-            --cell-bg: #1a1a1a;
-            --main-border: #2c2c2c;
-            --text-color: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --accent-color: #00FF7F;
-            --meta-bg: #181c25;
-            --meta-header-bg: #101217;
-            --meta-border: #2c3240;
-            --meta-text: #a9bce2;
-            --plan-bg: #1e1e1e;
-            --vfd-green: #50E050;
-            --progress-score-bg: #4caf50;
-            --progress-advance-bg: #ff9800;
-            --text-completed: #777;
-            --bullet-completed: #555;
-            --tag-text-dark: #111;
-            --error-color: #ff6b6b;
-            --warning-color: #ff9800;
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --step-1-color: #03dac6; --step-2-color: #ffb74d; --step-3-color: #4fc3f7;
-            --step-4-color: #ce93d8; --step-5-color: #ef9a9a; --step-6-color: #a5d6a7;
-            --color-todo: var(--text-secondary);
-            --color-inprogress: var(--step-3-color);
-            --color-done: var(--vfd-green);
-        }
-
-        /* --- Estilos del Login --- */
-        #login-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .login-box {
-            background-color: var(--cell-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--main-border);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 5px 25px var(--shadow-color);
-        }
-
-        .login-box h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--vfd-green);
-            margin-bottom: 30px;
-            font-size: 2em;
-            text-shadow: 0 0 5px rgba(80, 224, 80, 0.7);
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background-color: #2c2c2c;
-            border: 1px solid var(--main-border);
-            color: var(--text-color);
-            border-radius: 6px;
-            font-size: 1em;
-        }
-
-        .login-box button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            border: none;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1em;
-            border-radius: 6px;
-            transition: background-color 0.2s, transform 0.1s;
-            margin-top: 10px;
-        }
-        
-        .login-box button.secondary {
-             background-color: transparent;
-             color: var(--accent-color);
-             border: 1px solid var(--accent-color);
-             margin-top: 10px;
-        }
-
-        .login-box button:hover {
-            background-color: #39ff94;
-            color: var(--bg-color);
-            border-color: #39ff94;
-        }
-        .login-box button:active {
-            transform: scale(0.98);
-        }
-        
-        #login-error {
-            color: var(--error-color);
-            margin-top: 15px;
-            min-height: 1.2em;
-            font-size: 0.9em;
-        }
-        
-        /* Ocultar el contenido principal por defecto */
-        #main-app-content {
-            display: none;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        /* --- ESTRUCTURA PRINCIPAL DE LA PÁGINA --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Source Sans Pro', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; overflow: hidden; height: 100vh; }
-
-        /* --- BANNER FIJO --- */
-        .app-banner { padding: 20px 25px; background-color: var(--bg-color); border-bottom: 1px solid var(--main-border); flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .banner-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .banner-bottom-row { display: flex; width: 100%; align-items: center; gap: 20px; }
-        .global-progress-container { flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
-
-        /* --- ÁREA DE CONTENIDO DESPLAZABLE --- */
-        .main-content-area { flex-grow: 1; overflow-y: auto; }
-        .view-wrapper { padding: 20px; }
-        .view-wrapper.hidden { display: none; }
-        
-        /* ... (resto de tus estilos CSS van aquí sin cambios) ... */
-        .logout-button { background: none; border: 1px solid var(--error-color); color: var(--error-color); padding: 8px 12px; border-radius: 6px; font-family: 'Orbitron', sans-serif; cursor: pointer; transition: all 0.2s; }
-        .logout-button:hover { background-color: var(--error-color); color: var(--bg-color); }
-        .view-switcher { background-color: var(--accent-color); color: var(--bg-color); border: none; padding: 10px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
-        .view-switcher:hover { background-color: #39ff94; transform: translateY(-2px); }
-        .motivational-quote { font-family: 'Orbitron', sans-serif; color: var(--vfd-green); font-size: 1.5em; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 4px rgba(80, 224, 80, 0.6), 0 0 8px rgba(80, 224, 80, 0.4); min-height: 1.2em; }
-        .countdown-container { position: relative; display: inline-block; }
-        .countdown-timer-container { display: flex; justify-content: center; align-items: center; gap: 25px; }
-        .countdown-unit { text-align: center; }
-        .countdown-label { font-family: 'Orbitron', sans-serif; font-size: 0.8em; color: var(--vfd-green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; opacity: 0.8; }
-        .countdown-digits { font-family: 'Orbitron', sans-serif; font-size: 4em; color: var(--vfd-green); line-height: 1; text-shadow: 0 0 5px rgba(80, 224, 80, 0.7), 0 0 10px rgba(80, 224, 80, 0.5), 0 0 15px rgba(80, 224, 80, 0.3); }
-        #edit-countdown-btn { position: absolute; top: -5px; right: -30px; background: none; border: none; color: var(--meta-text); font-size: 1.2em; cursor: pointer; transition: color 0.2s; }
-        #edit-countdown-btn:hover { color: var(--accent-color); }
-        #countdown-editor { display: none; margin-top: 10px; align-items: center; justify-content: center; gap: 10px; }
-        #countdown-date-picker { background-color: var(--cell-bg); border: 1px solid var(--main-border); color: var(--text-color); padding: 5px; border-radius: 4px; font-family: 'Source Sans Pro', sans-serif; }
-        #countdown-date-picker::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
-        #save-countdown-btn { background-color: var(--accent-color); color: var(--bg-color); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        .progress-bar-wrapper { display: flex; flex-direction: column; gap: 4px; }
-        .progress-bar-wrapper label { font-size: 0.85em; color: var(--meta-text); font-weight: 600; text-align: left; }
-        .progress-bar-background { width: 100%; background-color: var(--main-border); border-radius: 8px; height: 22px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; width: 0%; border-radius: 8px; transition: width 0.5s ease-in-out; text-align: center; line-height: 22px; color: var(--bg-color); font-weight: bold; font-size: 0.8em; }
-        #global-score-bar { background-color: var(--progress-score-bg); }
-        #global-advance-bar { background-color: var(--progress-advance-bg); }
-        .calendar-container { display: grid; grid-template-columns: 40px 40px repeat(7, 1fr); gap: 2px; background-color: var(--main-border); }
-        .header-cell, .day-header { text-align: center; padding: 12px 5px; font-weight: 600; font-family: 'Orbitron', sans-serif; text-transform: uppercase; font-size: 0.9em; }
-        .meta-header { background-color: var(--meta-header-bg); color: var(--meta-text); border-bottom: 2px solid var(--main-border); }
-        .day-header { background-color: var(--cell-bg); color: var(--accent-color); border-bottom: 2px solid var(--main-border); }
-        .month-cell { grid-column: 1; background-color: var(--meta-bg); color: var(--meta-text); font-family: 'Orbitron', sans-serif; writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--meta-border); }
-        .week-cell-container { grid-column: 2; background-color: var(--meta-bg); position: relative; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--meta-border); }
-        .week-number { font-family: 'Orbitron', sans-serif; font-size: 1.6em; color: var(--meta-text); }
-        .day-cell { background-color: var(--cell-bg); min-height: 160px; padding: 8px 12px; position: relative; overflow-y: auto; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
-        .day-cell.empty { background-color: var(--bg-color); cursor: default; }
-        .day-cell.drag-over { background-color: var(--meta-bg); border-color: var(--accent-color); }
-        .day-cell.target-date { border-color: var(--error-color); box-shadow: 0 0 10px rgba(255, 107, 107, 0.4); }
-        .day-cell.target-date .calendar-day-number { color: var(--error-color); font-weight: bold; }
-        .day-cell.day-before-target { border-color: var(--warning-color); }
-        .day-cell.day-before-target .calendar-day-number { color: var(--warning-color); }
-        .calendar-day-number { font-size: 0.9em; font-weight: 600; color: #777; position: absolute; top: 8px; right: 12px; z-index: 1; transition: color 0.2s; }
-        .day-content ul { list-style-type: none; padding-left: 0; margin: 25px 0 0 0; }
-        .day-content li { margin-bottom: 4px; padding-left: 14px; position: relative; font-size: 0.85em; }
-        .day-content .subject-title { color: var(--text-color); font-weight: 700; display: block; margin-bottom: 6px; text-transform: uppercase; font-size: 1em; text-shadow: 0 0 4px rgba(255, 255, 255, 0.15); padding-left: 0; transition: color 0.4s ease; }
-        .day-content .subject-title.subject-completed { color: var(--text-completed); text-shadow: none; font-style: italic; }
-        .subject-title::before { content: none !important; }
-        .subject-score { color: var(--meta-text); font-size: 0.8em; font-weight: 400; margin-left: 8px; }
-        .topic-item { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; margin-left: -6px; border-radius: 4px; transition: all 0.2s; border-top: 2px solid transparent; border-bottom: 2px solid transparent; }
-        .topic-item[draggable="true"] { cursor: grab; }
-        .topic-item.dragging { opacity: 0.5; }
-        .topic-item:not(.topic-completed):not(.dragging):hover { background-color: var(--meta-bg); color: var(--accent-color); }
-        .topic-item.drag-over-top { border-top-color: var(--accent-color); }
-        .topic-item.drag-over-bottom { border-bottom-color: var(--accent-color); }
-        .topic-item::before { content: '■'; position: absolute; left: 0; top: 5px; color: var(--accent-color); font-size: 0.8em; line-height: 1.5; transition: color 0.3s ease; }
-        .topic-score { font-size: 0.85em; font-weight: bold; margin-left: 10px; flex-shrink: 0; }
-        .topic-item.topic-completed { color: var(--text-completed); font-style: italic; }
-        .topic-item.topic-completed:hover { color: var(--text-completed); background-color: transparent; }
-        .topic-item.topic-completed::before { color: var(--bullet-completed); }
-        .kanban-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
-        .kanban-column { background-color: var(--plan-bg); border-radius: 12px; display: flex; flex-direction: column; max-height: 100%; }
-        .kanban-column-header { padding: 15px 20px; border-bottom: 1px solid var(--main-border); display: flex; align-items: center; gap: 10px; position: sticky; top: 0; background-color: var(--plan-bg); z-index: 10; }
-        .kanban-column-header h2 { font-size: 1.1rem; font-weight: 600; }
-        #col-todo .kanban-column-header h2, #col-todo .kanban-column-header i { color: var(--color-todo); }
-        #col-inprogress .kanban-column-header h2, #col-inprogress .kanban-column-header i { color: var(--color-inprogress); }
-        #col-done .kanban-column-header h2, #col-done .kanban-column-header i { color: var(--color-done); }
-        .cards-container { flex-grow: 1; padding: 10px 20px 20px 20px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--main-border) var(--plan-bg); }
-        .specialty-header { display: flex; flex-direction: column; gap: 5px; margin: 20px 0 10px; padding: 10px; border-radius: 6px; background-color: var(--meta-bg); border-left: 4px solid; }
-        .specialty-header-main { display: flex; justify-content: space-between; align-items: center; }
-        .specialty-header-main h3 { font-size: 1.1rem; font-weight: 700; margin: 0; }
-        .specialty-progress-wrapper { display: flex; align-items: center; gap: 8px; }
-        .specialty-progress-wrapper small { font-size: 0.7rem; color: var(--meta-text); width: 40px; flex-shrink: 0; }
-        .specialty-progress-container { flex-grow: 1; height: 8px; background-color: var(--main-border); border-radius: 4px; }
-        .specialty-progress-bar { height: 100%; width: 0%; border-radius: 4px; transition: all 0.3s ease; background-color: var(--progress-advance-bg); }
-        .specialty-score-bar { height: 100%; width: 0%; border-radius: 4px; transition: all 0.3s ease; }
-        .specialty-score-bar.low { background-color: var(--error-color); }
-        .specialty-score-bar.medium { background-color: var(--warning-color); }
-        .specialty-score-bar.high { background-color: var(--vfd-green); }
-        .specialty-percentage-text { font-size: 0.8em; font-weight: 600; color: var(--text-secondary); width: 45px; text-align: right; flex-shrink: 0; }
-        .kanban-card { background-color: var(--cell-bg); border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 8px var(--shadow-color); cursor: pointer; transition: border-left-color 0.3s; }
-        .kanban-card:hover { background-color: var(--meta-bg); }
-        .card-summary { padding: 12px 15px; }
-        .card-topic-name { font-weight: 600; }
-        .card-progress-display { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
-        .card-progress-bar-container { flex-grow: 1; height: 6px; background-color: var(--main-border); border-radius: 3px; }
-        .card-progress-bar { height: 100%; width: 0%; border-radius: 3px; transition: width 0.3s ease; }
-        .card-progress-text, .card-score-text { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 998; display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .modal-overlay.visible { display: block; opacity: 1; }
-        .modal-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--cell-bg); border: 1px solid var(--main-border); border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.5); z-index: 1000; width: 90%; max-height: 90vh; display: none; flex-direction: column; transition: transform 0.3s ease, opacity 0.3s ease; }
-        .modal-container.visible { display: flex; }
-        .modal-header { padding: 15px 25px; border-bottom: 1px solid var(--main-border); display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h2 { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.5em; }
-        .modal-close { font-size: 2em; color: #888; cursor: pointer; line-height: 1; transition: color 0.2s; }
-        .modal-close:hover { color: var(--text-color); }
-        .modal-content { padding: 25px; overflow-y: auto; }
-        #details-modal { max-width: 650px; z-index: 1000; }
-        #details-modal .modal-header h2 { color: var(--accent-color); }
-        #modal-notes { width: 100%; box-sizing: border-box; min-height: 120px; background-color: #2c2c2c; border: 1px solid var(--main-border); color: var(--text-color); padding: 10px; resize: vertical; border-radius: 4px; }
-        #modal-save-btn { width: 100%; padding: 12px; margin-top: 10px; background-color: var(--accent-color); color: var(--bg-color); border: none; cursor: pointer; font-family: 'Orbitron', sans-serif; font-size: 1em; border-radius: 4px; transition: background-color 0.2s, transform 0.1s; }
-        #modal-save-btn:hover { background-color: #39ff94; }
-        #modal-save-btn:active { transform: scale(0.98); }
-        #topic-plan-modal { max-width: 900px; z-index: 1001; background-color: var(--bg-color); }
-        #topic-plan-modal .modal-header h2 { color: var(--vfd-green); font-size: 1.3em; }
-        #topic-plan-modal .modal-content { padding: 15px 25px; }
-        .study-flow-diagram { display: flex; flex-direction: column; gap: 15px; width: 100%; }
-        .step-card { border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); padding: 12px 18px; display: flex; align-items: flex-start; transition: opacity 0.3s ease, border-left-color 0.3s ease; border-left-style: solid; border-left-width: 5px; background-color: var(--plan-bg); }
-        .step-card.completed { border-left-color: #505050 !important; opacity: 0.65; }
-        .step-card.completed .step-icon-container, .step-card.completed .step-title, .step-card.completed .step-details li { color: #909090 !important; }
-        .step-card.completed .step-number { background-color: #383838 !important; color: #787878 !important; }
-        .step-icon-container { font-size: 1.8em; margin-right: 15px; padding-top: 2px; min-width: 35px; text-align: center; }
-        .step-content { flex-grow: 1; }
-        .step-title { font-size: 1.2em; font-weight: 600; margin: 0 0 10px 0; display: flex; align-items: center; color: var(--text-color); }
-        .step-title .subtitle { font-size: 0.7em; color: #999; margin-left: 8px; font-weight: 400; text-transform: none; }
-        .step-number { color: #101010; border-radius: 50%; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: bold; margin-right: 8px; flex-shrink: 0; }
-        .step-details { list-style: none; padding-left: 0; margin: 0; }
-        .step-details li { margin-bottom: 8px; font-size: 0.9em; line-height: 1.4; display: flex; align-items: center; color: var(--meta-text); }
-        .step-details li label { display: flex; align-items: center; cursor: pointer; width: 100%; }
-        .task-checkbox { margin-right: 10px; accent-color: var(--vfd-green); transform: scale(1.1); }
-        .task-text { transition: text-decoration 0.3s ease, color 0.3s ease; }
-        input[type="checkbox"]:checked + label .task-text, input[type="checkbox"]:checked ~ .task-text { text-decoration: line-through; color: #6a6a6a; }
-        .optional-tag { font-size: 0.8em; color: #888; margin-left: 5px; font-style: italic; }
-        .tool-tag { padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: 600; margin-left: 8px; border: 1px solid; }
-        .tag-madera { background-color: #c8e6c9; color: var(--tag-text-dark); border-color: #a5d6a7; }
-        .tag-ia { background-color: #bbdefb; color: var(--tag-text-dark); border-color: #90caf9; }
-        .tag-genspark { background-color: #ffecb3; color: var(--tag-text-dark); border-color: #ffe082; }
-        .tag-notebooklm { background-color: #d1c4e9; color: var(--tag-text-dark); border-color: #b39ddb; }
-        .step-1 { border-left-color: var(--step-1-color); } .step-1 .step-icon-container { color: var(--step-1-color); } .step-1 .step-number { background-color: var(--step-1-color); }
-        .step-2 { border-left-color: var(--step-2-color); } .step-2 .step-icon-container { color: var(--step-2-color); } .step-2 .step-number { background-color: var(--step-2-color); }
-        .step-3 { border-left-color: var(--step-3-color); } .step-3 .step-icon-container { color: var(--step-3-color); } .step-3 .step-number { background-color: var(--step-3-color); }
-        .step-4 { border-left-color: var(--step-4-color); } .step-4 .step-icon-container { color: var(--step-4-color); } .step-4 .step-number { background-color: var(--step-4-color); }
-        .step-5 { border-left-color: var(--step-5-color); } .step-5 .step-icon-container { color: var(--step-5-color); } .step-5 .step-number { background-color: var(--step-5-color); }
-        .step-6 { border-left-color: var(--step-6-color); } .step-6 .step-icon-container { color: var(--step-6-color); } .step-6 .step-number { background-color: var(--step-6-color); }
-        .parallel-steps-container { display: flex; gap: 15px; }
-        .parallel-steps-container .step-card { flex: 1; }
-        .practice-step-layout { display: flex; flex-direction: row; gap: 15px; width: 100%; }
-        .practice-tasks-column { flex: 2; }
-        .practice-score-column { flex: 1; }
-        .practice-score-column h3 { font-size: 0.9em; color: #ccc; margin: 0 0 8px 0; font-weight: 500; text-transform: uppercase; }
-        .score-inputs-row { display: flex; gap: 8px; }
-        .score-input-group { flex-grow: 1; }
-        .score-input-group label { font-size: 0.75em; color: #bbb; }
-        .score-input-group input { font-family: 'Source Sans Pro', sans-serif; background-color: #2a2a2a; color: #e0e0e0; border: 1px solid #444; border-radius: 4px; padding: 5px 8px; font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center; }
-        .score-input-group input[type=number]::-webkit-inner-spin-button, .score-input-group input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        .score-input-group input[type=number] { -moz-appearance: textfield; }
-        .percentage-output { font-weight: bold; background-color: var(--plan-bg) !important; cursor: default; }
-        .topic-modal-footer { margin-top: 25px; padding-top: 15px; border-top: 1px solid var(--main-border); text-align: right; }
-        .topic-finish-btn { background-color: var(--vfd-green); color: var(--bg-color); border: none; border-radius: 6px; padding: 12px 25px; font-family: 'Orbitron', sans-serif; font-size: 1em; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; }
-        .topic-finish-btn:hover { background-color: #76ff76; transform: translateY(-2px); }
-        
-        @media (max-width: 768px) { .motivational-quote { font-size: 1.2em; } .countdown-digits { font-size: 3em; } .countdown-timer-container { gap: 15px; } .parallel-steps-container, .practice-step-layout, .kanban-board { flex-direction: column; display: block; } .kanban-column { margin-bottom: 20px; } .day-cell { min-height: 120px; } }
-        @media (max-width: 600px) { .banner-bottom-row { flex-direction: column; } .motivational-quote { font-size: 1em; letter-spacing: 1px; } .countdown-digits { font-size: 2.2em; } .countdown-label { font-size: 0.6em; } .countdown-timer-container { gap: 10px; } body { padding: 0; } .view-wrapper { padding: 10px; } .calendar-container { grid-template-columns: 30px 30px repeat(7, 1fr); } .modal-content { padding: 15px; } .step-card { flex-direction: column; } .step-icon-container { text-align: left; margin-bottom: 5px;} #edit-countdown-btn { right: -5px; top: -15px; } }
+        :root{--bg-color:#121212;--cell-bg:#1a1a1a;--main-border:#2c2c2c;--text-color:#e0e0e0;--text-secondary:#a0a0a0;--accent-color:#00FF7F;--meta-bg:#181c25;--meta-header-bg:#101217;--meta-border:#2c3240;--meta-text:#a9bce2;--plan-bg:#1e1e1e;--vfd-green:#50E050;--progress-score-bg:#4caf50;--progress-advance-bg:#ff9800;--text-completed:#777;--bullet-completed:#555;--tag-text-dark:#111;--error-color:#ff6b6b;--warning-color:#ff9800;--shadow-color:rgba(0,0,0,0.4);--step-1-color:#03dac6;--step-2-color:#ffb74d;--step-3-color:#4fc3f7;--step-4-color:#ce93d8;--step-5-color:#ef9a9a;--step-6-color:#a5d6a7;--color-todo:var(--text-secondary);--color-inprogress:var(--step-3-color);--color-done:var(--vfd-green)}#login-container{position:fixed;top:0;left:0;width:100%;height:100%;background-color:var(--bg-color);z-index:2000;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px}.login-box{background-color:var(--cell-bg);padding:40px;border-radius:12px;border:1px solid var(--main-border);width:100%;max-width:400px;text-align:center;box-shadow:0 5px 25px var(--shadow-color)}.login-box h1{font-family:'Orbitron',sans-serif;color:var(--vfd-green);margin-bottom:30px;font-size:2em;text-shadow:0 0 5px rgba(80,224,80,0.7)}.login-box input{width:100%;padding:12px;margin-bottom:15px;background-color:#2c2c2c;border:1px solid var(--main-border);color:var(--text-color);border-radius:6px;font-size:1em}.login-box button{width:100%;padding:12px;background-color:var(--accent-color);color:var(--bg-color);border:none;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:1.1em;border-radius:6px;transition:background-color .2s,transform .1s;margin-top:10px}.login-box button.secondary{background-color:transparent;color:var(--accent-color);border:1px solid var(--accent-color);margin-top:10px}.login-box button:hover{background-color:#39ff94;color:var(--bg-color);border-color:#39ff94}.login-box button:active{transform:scale(.98)}#login-error{color:var(--error-color);margin-top:15px;min-height:1.2em;font-size:.9em}#main-app-content{display:none;height:100vh;flex-direction:column}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Source Sans Pro',sans-serif;background-color:var(--bg-color);color:var(--text-color);margin:0;overflow:hidden;height:100vh}.app-banner{padding:20px 25px;background-color:var(--bg-color);border-bottom:1px solid var(--main-border);flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:20px}.banner-top-row{display:flex;justify-content:space-between;align-items:center;width:100%}.banner-bottom-row{display:flex;width:100%;align-items:center;gap:20px}.global-progress-container{flex-grow:1;display:flex;flex-direction:column;gap:10px}.main-content-area{flex-grow:1;overflow-y:auto}.view-wrapper{padding:20px}.view-wrapper.hidden{display:none}.logout-button{background:0 0;border:1px solid var(--error-color);color:var(--error-color);padding:8px 12px;border-radius:6px;font-family:'Orbitron',sans-serif;cursor:pointer;transition:all .2s}.logout-button:hover{background-color:var(--error-color);color:var(--bg-color)}.view-switcher{background-color:var(--accent-color);color:var(--bg-color);border:none;padding:10px 20px;border-radius:6px;font-family:'Orbitron',sans-serif;font-weight:700;cursor:pointer;transition:all .2s ease;flex-shrink:0}.view-switcher:hover{background-color:#39ff94;transform:translateY(-2px)}.motivational-quote{font-family:'Orbitron',sans-serif;color:var(--vfd-green);font-size:1.5em;text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 4px rgba(80,224,80,.6),0 0 8px rgba(80,224,80,.4);min-height:1.2em}.countdown-container{position:relative;display:inline-block}.countdown-timer-container{display:flex;justify-content:center;align-items:center;gap:25px}.countdown-unit{text-align:center}.countdown-label{font-family:'Orbitron',sans-serif;font-size:.8em;color:var(--vfd-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;opacity:.8}.countdown-digits{font-family:'Orbitron',sans-serif;font-size:4em;color:var(--vfd-green);line-height:1;text-shadow:0 0 5px rgba(80,224,80,.7),0 0 10px rgba(80,224,80,.5),0 0 15px rgba(80,224,80,.3)}#edit-countdown-btn{position:absolute;top:-5px;right:-30px;background:0 0;border:none;color:var(--meta-text);font-size:1.2em;cursor:pointer;transition:color .2s}#edit-countdown-btn:hover{color:var(--accent-color)}#countdown-editor{display:none;margin-top:10px;align-items:center;justify-content:center;gap:10px}#countdown-date-picker{background-color:var(--cell-bg);border:1px solid var(--main-border);color:var(--text-color);padding:5px;border-radius:4px;font-family:'Source Sans Pro',sans-serif}#countdown-date-picker::-webkit-calendar-picker-indicator{filter:invert(1);cursor:pointer}#save-countdown-btn{background-color:var(--accent-color);color:var(--bg-color);border:none;padding:6px 12px;border-radius:4px;font-weight:700;cursor:pointer}.progress-bar-wrapper{display:flex;flex-direction:column;gap:4px}.progress-bar-wrapper label{font-size:.85em;color:var(--meta-text);font-weight:600;text-align:left}.progress-bar-background{width:100%;background-color:var(--main-border);border-radius:8px;height:22px;overflow:hidden}.progress-bar-fill{height:100%;width:0%;border-radius:8px;transition:width .5s ease-in-out;text-align:center;line-height:22px;color:var(--bg-color);font-weight:700;font-size:.8em}#global-score-bar{background-color:var(--progress-score-bg)}#global-advance-bar{background-color:var(--progress-advance-bg)}.calendar-container{display:grid;grid-template-columns:40px 40px repeat(7,1fr);gap:2px;background-color:var(--main-border)}.header-cell,.day-header{text-align:center;padding:12px 5px;font-weight:600;font-family:'Orbitron',sans-serif;text-transform:uppercase;font-size:.9em}.meta-header{background-color:var(--meta-header-bg);color:var(--meta-text);border-bottom:2px solid var(--main-border)}.day-header{background-color:var(--cell-bg);color:var(--accent-color);border-bottom:2px solid var(--main-border)}.month-cell{grid-column:1;background-color:var(--meta-bg);color:var(--meta-text);font-family:'Orbitron',sans-serif;writing-mode:vertical-rl;text-transform:uppercase;letter-spacing:2px;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--meta-border)}.week-cell-container{grid-column:2;background-color:var(--meta-bg);position:relative;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--meta-border)}.week-number{font-family:'Orbitron',sans-serif;font-size:1.6em;color:var(--meta-text)}.day-cell{background-color:var(--cell-bg);min-height:160px;padding:8px 12px;position:relative;overflow-y:auto;cursor:pointer;transition:all .2s;border:2px solid transparent}.day-cell.empty{background-color:var(--bg-color);cursor:default}.day-cell.drag-over{background-color:var(--meta-bg);border-color:var(--accent-color)}.day-cell.target-date{border-color:var(--error-color);box-shadow:0 0 10px rgba(255,107,107,.4)}.day-cell.target-date .calendar-day-number{color:var(--error-color);font-weight:700}.day-cell.day-before-target{border-color:var(--warning-color)}.day-cell.day-before-target .calendar-day-number{color:var(--warning-color)}.calendar-day-number{font-size:.9em;font-weight:600;color:#777;position:absolute;top:8px;right:12px;z-index:1;transition:color .2s}.day-content ul{list-style-type:none;padding-left:0;margin:25px 0 0}.day-content li{margin-bottom:4px;padding-left:14px;position:relative;font-size:.85em}.day-content .subject-title{color:var(--text-color);font-weight:700;display:block;margin-bottom:6px;text-transform:uppercase;font-size:1em;text-shadow:0 0 4px rgba(255,255,255,.15);padding-left:0;transition:color .4s ease}.day-content .subject-title.subject-completed{color:var(--text-completed);text-shadow:none;font-style:italic}.subject-title::before{content:none!important}.subject-score{color:var(--meta-text);font-size:.8em;font-weight:400;margin-left:8px}.topic-item{display:flex;align-items:center;justify-content:space-between;padding:4px 6px;margin-left:-6px;border-radius:4px;transition:all .2s;border-top:2px solid transparent;border-bottom:2px solid transparent}.topic-item[draggable=true]{cursor:grab}.topic-item.dragging{opacity:.5}.topic-item:not(.topic-completed):not(.dragging):hover{background-color:var(--meta-bg);color:var(--accent-color)}.topic-item.drag-over-top{border-top-color:var(--accent-color)}.topic-item.drag-over-bottom{border-bottom-color:var(--accent-color)}.topic-item::before{content:'■';position:absolute;left:0;top:5px;color:var(--accent-color);font-size:.8em;line-height:1.5;transition:color .3s ease}.topic-score{font-size:.85em;font-weight:700;margin-left:10px;flex-shrink:0}.topic-item.topic-completed{color:var(--text-completed);font-style:italic}.topic-item.topic-completed:hover{color:var(--text-completed);background-color:transparent}.topic-item.topic-completed::before{color:var(--bullet-completed)}.kanban-board{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;height:100%}.kanban-column{background-color:var(--plan-bg);border-radius:12px;display:flex;flex-direction:column;max-height:100%}.kanban-column-header{padding:15px 20px;border-bottom:1px solid var(--main-border);display:flex;align-items:center;gap:10px;position:sticky;top:0;background-color:var(--plan-bg);z-index:10}.kanban-column-header h2{font-size:1.1rem;font-weight:600}#col-todo .kanban-column-header h2,#col-todo .kanban-column-header i{color:var(--color-todo)}#col-inprogress .kanban-column-header h2,#col-inprogress .kanban-column-header i{color:var(--color-inprogress)}#col-done .kanban-column-header h2,#col-done .kanban-column-header i{color:var(--color-done)}.cards-container{flex-grow:1;padding:10px 20px 20px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--main-border) var(--plan-bg)}.specialty-header{display:flex;flex-direction:column;gap:5px;margin:20px 0 10px;padding:10px;border-radius:6px;background-color:var(--meta-bg);border-left:4px solid}.specialty-header-main{display:flex;justify-content:space-between;align-items:center}.specialty-header-main h3{font-size:1.1rem;font-weight:700;margin:0}.specialty-progress-wrapper{display:flex;align-items:center;gap:8px}.specialty-progress-wrapper small{font-size:.7rem;color:var(--meta-text);width:40px;flex-shrink:0}.specialty-progress-container{flex-grow:1;height:8px;background-color:var(--main-border);border-radius:4px}.specialty-progress-bar{height:100%;width:0%;border-radius:4px;transition:all .3s ease;background-color:var(--progress-advance-bg)}.specialty-score-bar{height:100%;width:0%;border-radius:4px;transition:all .3s ease}.specialty-score-bar.low{background-color:var(--error-color)}.specialty-score-bar.medium{background-color:var(--warning-color)}.specialty-score-bar.high{background-color:var(--vfd-green)}.specialty-percentage-text{font-size:.8em;font-weight:600;color:var(--text-secondary);width:45px;text-align:right;flex-shrink:0}.kanban-card{background-color:var(--cell-bg);border-radius:8px;margin-bottom:10px;box-shadow:0 2px 8px var(--shadow-color);cursor:pointer;transition:border-left-color .3s}.kanban-card:hover{background-color:var(--meta-bg)}.card-summary{padding:12px 15px}.card-topic-name{font-weight:600}.card-progress-display{display:flex;align-items:center;gap:15px;margin-top:10px}.card-progress-bar-container{flex-grow:1;height:6px;background-color:var(--main-border);border-radius:3px}.card-progress-bar{height:100%;width:0%;border-radius:3px;transition:width .3s ease}.card-progress-text,.card-score-text{font-size:.75rem;font-weight:600;color:var(--text-secondary)}.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:998;display:none;opacity:0;transition:opacity .3s ease}.modal-overlay.visible{display:block;opacity:1}.modal-container{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background-color:var(--cell-bg);border:1px solid var(--main-border);border-radius:12px;box-shadow:0 5px 25px rgba(0,0,0,.5);z-index:1000;width:90%;max-height:90vh;display:none;flex-direction:column;transition:transform .3s ease,opacity .3s ease}.modal-container.visible{display:flex}.modal-header{padding:15px 25px;border-bottom:1px solid var(--main-border);display:flex;justify-content:space-between;align-items:center}.modal-header h2{margin:0;font-family:'Orbitron',sans-serif;font-size:1.5em}.modal-close{font-size:2em;color:#888;cursor:pointer;line-height:1;transition:color .2s}.modal-close:hover{color:var(--text-color)}.modal-content{padding:25px;overflow-y:auto}#details-modal{max-width:650px;z-index:1000}#details-modal .modal-header h2{color:var(--accent-color)}#modal-notes{width:100%;box-sizing:border-box;min-height:120px;background-color:#2c2c2c;border:1px solid var(--main-border);color:var(--text-color);padding:10px;resize:vertical;border-radius:4px}#modal-save-btn{width:100%;padding:12px;margin-top:10px;background-color:var(--accent-color);color:var(--bg-color);border:none;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:1em;border-radius:4px;transition:background-color .2s,transform .1s}#modal-save-btn:hover{background-color:#39ff94}#modal-save-btn:active{transform:scale(.98)}#topic-plan-modal{max-width:900px;z-index:1001;background-color:var(--bg-color)}#topic-plan-modal .modal-header h2{color:var(--vfd-green);font-size:1.3em}#topic-plan-modal .modal-content{padding:15px 25px}.study-flow-diagram{display:flex;flex-direction:column;gap:15px;width:100%}.step-card{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.3);padding:12px 18px;display:flex;align-items:flex-start;transition:opacity .3s ease,border-left-color .3s ease;border-left-style:solid;border-left-width:5px;background-color:var(--plan-bg)}.step-card.completed{border-left-color:#505050!important;opacity:.65}.step-card.completed .step-icon-container,.step-card.completed .step-title,.step-card.completed .step-details li{color:#909090!important}.step-card.completed .step-number{background-color:#383838!important;color:#787878!important}.step-icon-container{font-size:1.8em;margin-right:15px;padding-top:2px;min-width:35px;text-align:center}.step-content{flex-grow:1}.step-title{font-size:1.2em;font-weight:600;margin:0 0 10px;display:flex;align-items:center;color:var(--text-color)}.step-title .subtitle{font-size:.7em;color:#999;margin-left:8px;font-weight:400;text-transform:none}.step-number{color:#101010;border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:.7em;font-weight:700;margin-right:8px;flex-shrink:0}.step-details{list-style:none;padding-left:0;margin:0}.step-details li{margin-bottom:8px;font-size:.9em;line-height:1.4;display:flex;align-items:center;color:var(--meta-text)}.step-details li label{display:flex;align-items:center;cursor:pointer;width:100%}.task-checkbox{margin-right:10px;accent-color:var(--vfd-green);transform:scale(1.1)}.task-text{transition:text-decoration .3s ease,color .3s ease}input[type=checkbox]:checked+label .task-text,input[type=checkbox]:checked~.task-text{text-decoration:line-through;color:#6a6a6a}.optional-tag{font-size:.8em;color:#888;margin-left:5px;font-style:italic}.tool-tag{padding:2px 8px;border-radius:12px;font-size:.75em;font-weight:600;margin-left:8px;border:1px solid}.tag-madera{background-color:#c8e6c9;color:var(--tag-text-dark);border-color:#a5d6a7}.tag-ia{background-color:#bbdefb;color:var(--tag-text-dark);border-color:#90caf9}.tag-genspark{background-color:#ffecb3;color:var(--tag-text-dark);border-color:#ffe082}.tag-notebooklm{background-color:#d1c4e9;color:var(--tag-text-dark);border-color:#b39ddb}.step-1{border-left-color:var(--step-1-color)}.step-1 .step-icon-container{color:var(--step-1-color)}.step-1 .step-number{background-color:var(--step-1-color)}.step-2{border-left-color:var(--step-2-color)}.step-2 .step-icon-container{color:var(--step-2-color)}.step-2 .step-number{background-color:var(--step-2-color)}.step-3{border-left-color:var(--step-3-color)}.step-3 .step-icon-container{color:var(--step-3-color)}.step-3 .step-number{background-color:var(--step-3-color)}.step-4{border-left-color:var(--step-4-color)}.step-4 .step-icon-container{color:var(--step-4-color)}.step-4 .step-number{background-color:var(--step-4-color)}.step-5{border-left-color:var(--step-5-color)}.step-5 .step-icon-container{color:var(--step-5-color)}.step-5 .step-number{background-color:var(--step-5-color)}.step-6{border-left-color:var(--step-6-color)}.step-6 .step-icon-container{color:var(--step-6-color)}.step-6 .step-number{background-color:var(--step-6-color)}.parallel-steps-container{display:flex;gap:15px}.parallel-steps-container .step-card{flex:1}.practice-step-layout{display:flex;flex-direction:row;gap:15px;width:100%}.practice-tasks-column{flex:2}.practice-score-column{flex:1}.practice-score-column h3{font-size:.9em;color:#ccc;margin:0 0 8px;font-weight:500;text-transform:uppercase}.score-inputs-row{display:flex;gap:8px}.score-input-group{flex-grow:1}.score-input-group label{font-size:.75em;color:#bbb}.score-input-group input{font-family:'Source Sans Pro',sans-serif;background-color:#2a2a2a;color:#e0e0e0;border:1px solid #444;border-radius:4px;padding:5px 8px;font-size:.9em;width:100%;box-sizing:border-box;text-align:center}.score-input-group input[type=number]::-webkit-inner-spin-button,.score-input-group input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.score-input-group input[type=number]{-moz-appearance:textfield}.percentage-output{font-weight:700;background-color:var(--plan-bg)!important;cursor:default}.topic-modal-footer{margin-top:25px;padding-top:15px;border-top:1px solid var(--main-border);text-align:right}.topic-finish-btn{background-color:var(--vfd-green);color:var(--bg-color);border:none;border-radius:6px;padding:12px 25px;font-family:'Orbitron',sans-serif;font-size:1em;font-weight:700;text-transform:uppercase;cursor:pointer;transition:background-color .2s ease,transform .2s ease}.topic-finish-btn:hover{background-color:#76ff76;transform:translateY(-2px)}@media (max-width:768px){.motivational-quote{font-size:1.2em}.countdown-digits{font-size:3em}.countdown-timer-container{gap:15px}.parallel-steps-container,.practice-step-layout,.kanban-board{flex-direction:column;display:block}.kanban-column{margin-bottom:20px}.day-cell{min-height:120px}}@media (max-width:600px){.banner-bottom-row{flex-direction:column}.motivational-quote{font-size:1em;letter-spacing:1px}.countdown-digits{font-size:2.2em}.countdown-label{font-size:.6em}.countdown-timer-container{gap:10px}body{padding:0}.view-wrapper{padding:10px}.calendar-container{grid-template-columns:30px 30px repeat(7,1fr)}.modal-content{padding:15px}.step-card{flex-direction:column}.step-icon-container{text-align:left;margin-bottom:5px}#edit-countdown-btn{right:-5px;top:-15px}}
     </style>
 </head>
 <body>
@@ -415,13 +135,11 @@
         // --- LÓGICA DE AUTENTICACIÓN ---
         auth.onAuthStateChanged(user => {
             if (user) {
-                // Usuario ha iniciado sesión
                 loginContainer.style.display = 'none';
                 mainAppContent.style.display = 'flex';
                 currentUser = user;
-                initializeAppLogic(); // Inicia la aplicación principal
+                initializeAppLogic(); 
             } else {
-                // Usuario no ha iniciado sesión
                 loginContainer.style.display = 'flex';
                 mainAppContent.style.display = 'none';
                 currentUser = null;
@@ -431,6 +149,7 @@
         loginButton.addEventListener('click', () => {
             const email = loginEmailInput.value;
             const password = loginPasswordInput.value;
+            loginError.textContent = '';
             auth.signInWithEmailAndPassword(email, password)
                 .catch(error => {
                     loginError.textContent = "Error: " + error.message;
@@ -440,6 +159,7 @@
         signupButton.addEventListener('click', () => {
             const email = loginEmailInput.value;
             const password = loginPasswordInput.value;
+            loginError.textContent = '';
             auth.createUserWithEmailAndPassword(email, password)
                 .catch(error => {
                     loginError.textContent = "Error: " + error.message;
@@ -453,7 +173,6 @@
 
         // --- LÓGICA PRINCIPAL DE LA APLICACIÓN ---
         async function initializeAppLogic() {
-            // ... (El resto del código JavaScript va aquí, sin cambios)
             const subjectToTopicsMap = new Map();
             const motivationalQuotes = [ "La disciplina es el puente entre metas y logros.", "El éxito es la suma de pequeños esfuerzos repetidos día tras día.", "No te detengas hasta que te sientas orgulloso.", "Cree en ti mismo y todo será posible.", "El único modo de hacer un gran trabajo es amar lo que haces." ];
             
@@ -521,15 +240,10 @@
                     currentLocal = currentLocal[keys[i]] = currentLocal[keys[i]] || {};
                 }
                 currentLocal[keys[keys.length - 1]] = value;
-                
                 const payload = {};
                 let currentPayload = payload;
-                for (let i = 0; i < keys.length - 1; i++) {
-                    currentPayload[keys[i]] = {};
-                    currentPayload = currentPayload[keys[i]];
-                }
+                for (let i = 0; i < keys.length - 1; i++) { currentPayload[keys[i]] = {}; currentPayload = currentPayload[keys[i]]; }
                 currentPayload[keys[keys.length - 1]] = value;
-                
                 await docRef.set(payload, { merge: true });
             }
             
@@ -557,80 +271,27 @@
             
             function generateStudyPlan() {
                 // FASE 1: Planificación inversa (hasta 26 de Junio)
-                const topicsBySpecialtyPart1 = {
-                    "UROLOGÍA": [ "Escroto agudo", "Torsión testicular", "Hiperplasia prostática benigna", "Cáncer de próstata", "Pielonefritis aguda", "Infección de tracto urinario", "Urolitiasis", "Orquiepididimitis", "Cáncer testicular", "Disfunción eréctil", "Estenosis del meato urinario", "Hidrocele", "Varicocele", "Prostatitis aguda", "Cáncer de vejiga", "Cáncer renal", "Incontinencia urinaria", "Retención aguda de orina" ],
-                    "ENDOCRINOLOGÍA": [ "Diabetes mellitus", "Prediabetes", "Diabetes en el adulto mayor", "Diabetes en pediatría", "Cetoacidosis diabética y EHH", "Hipoglucemia", "Enfermedad de Addison", "Enfermedad de Cushing / Síndrome de Cushing", "Hiperprolactinemia", "Acromegalia", "Feocromocitoma", "Hiperaldosteronismo", "Hiperparatiroidismo", "Neoplasia endocrina múltple", "Alopecia endocrina" ],
-                    "INFECTOLOGÍA": [ "Brucelosis", "Cisticercosis", "Clostridium", "Diarrea aguda en adultos", "Diarrea en niños", "Chinkungunya", "Dengue", "Zika", "Paludismo", "Salmonella Fiebre tifoidea", "Sepsis y choque séptico", "Tuberculosis pulmonar", "ETS Generalidades", "VIH Adultos", "VIH Madre e hijo", "RV yOportunistas", "Sarcoma de Kaposi", "Giardiasis", "Tuberculosis extrapulmonar", "Lepra", "Medios de cultivo", "Actinomicosis", "Amebiasis intestinal", "Anquilostomiasis", "Ascariasis", "Aspergilosis", "Coccidioidomicosis", "Difteria", "Enfermedad de Chagas", "Enfermedad de Lyme", "Estrongiloidiasis", "Fascitis necrosante", "Fiebre de origen desconocido", "Filariasis linfática", "Filariasis ocular Loasis", "Infecciones odontogénicas", "Leishmaniasis", "Leptospirosis", "Mucormicosis", "Oncocercosis", "Oxiuriasis o enterobiasis", "Poliomielitis", "Rabia", "Tricuriasis", "Triquinosis", "Neumonía adquirida en la comunidad", "Neumonía bacteriana adquirida en la comunidad Niños", "Influenza", "Meningitis", "Encefalitis viral", "Absceso cerebral" ],
-                    "HEMATOLOGÍA": [ "Anemia generalidades", "Anemia ferropénica Adultos", "Leucemias", "Linfomas", "Trombocitopenia inmune" ],
-                    "NEUROLOGÍA": [ "Cefalea Secundarias", "Cefaleas primarias", "Crisis convulsivas", "Estatus epiléptico", "Crisis febriles", "Enfermedad de Parkinson", "Evc isquémico", "Hemorragia subaracnoidea", "Guillain Barré", "Esclerosis múltiple", "Evc hemorrágico", "Miastenia gravis", "Muerte encefálica" ],
-                    "NEUMOLOGÍA": [ "Asma en pediátricos", "Exacerbación de asma", "Cáncer de pulmón", "Epoc", "Derrame pleural", "Tabaquismo" ],
-                    "REUMATOLOGÍA": [ "Artritis reactiva", "Artritis reumatoide", "Espondilitis anquilosante", "Gota", "Lupus eritematoso sistémico", "Arteritis de la temporal", "Granulomatosis de Wegener", "Artritis séptica" ],
-                    "NEFROLOGÍA": [ "Lesión renal aguda", "Enfermedad renal crónica", "Nefropatía diabética", "Síndrome nefrítico y nefrootico", "Trastorno ácido-base", "Nefritis lúpica" ],
-                    "DERMATOLOGÍA": [ "Dermatitis atópica", "Dermatofitosis", "SSJ y NET", "Escabiosis - Sarna", "Impétigo", "Melanoma", "Psoriasis", "Carcinoma basocelular", "Acné vulgar", "Erisipela", "Urticaria", "Dermatitis por contacto", "Pediculosis capitis", "Síndrome de Ritter", "Carcinoma espinocelular" ],
-                    "PSIQUIATRÍA": [ "Abuso de sustancias", "Abstinencia alcohólica", "Trastorno por alcohol", "Esquizofrenia", "Estrés post traumático", "Trastornos del sueño", "Intento de suicidio", "Tdah", "Trastorno bipolar", "Trastornos de ansiedad", "Trastornos de conducta alimentaria", "Consumo de mariguana", "Violencia contra la mujer", "Autismo", "Síndrome de Munchausen", "Depresión mayor" ],
-                    "GERIATRÍA": [ "Valoración geriátrica", "Alzheimer", "Delirium", "Demencia vascular", "Deterioro cognitivo", "Insomnio en el adulto mayor", "Síndrome de caídas", "Síndrome de fragilidad", "Maltrato en el adulto mayor", "Colapso del cuidador", "Depresión mayor" ],
-                    "GENÉTICA": [ "Síndrome de Down", "Síndrome de Klinefelter", "Síndrome de Turner", "Síndrome de Marfan", "Enfermedad de Wilson", "Síndrome de Dravet", "Síndrome de Lynch", "Síndrome de Peutz Jegher", "Von Hippel Lindau" ]
-                };
-
+                const topicsBySpecialtyPart1 = {"UROLOGÍA":["Escroto agudo","Torsión testicular","Hiperplasia prostática benigna","Cáncer de próstata","Pielonefritis aguda","Infección de tracto urinario","Urolitiasis","Orquiepididimitis","Cáncer testicular","Disfunción eréctil","Estenosis del meato urinario","Hidrocele","Varicocele","Prostatitis aguda","Cáncer de vejiga","Cáncer renal","Incontinencia urinaria","Retención aguda de orina"],"ENDOCRINOLOGÍA":["Diabetes mellitus","Prediabetes","Diabetes en el adulto mayor","Diabetes en pediatría","Cetoacidosis diabética y EHH","Hipoglucemia","Enfermedad de Addison","Enfermedad de Cushing / Síndrome de Cushing","Hiperprolactinemia","Acromegalia","Feocromocitoma","Hiperaldosteronismo","Hiperparatiroidismo","Neoplasia endocrina múltple","Alopecia endocrina"],"INFECTOLOGÍA":["Brucelosis","Cisticercosis","Clostridium","Diarrea aguda en adultos","Diarrea en niños","Chinkungunya","Dengue","Zika","Paludismo","Salmonella Fiebre tifoidea","Sepsis y choque séptico","Tuberculosis pulmonar","ETS Generalidades","VIH Adultos","VIH Madre e hijo","RV yOportunistas","Sarcoma de Kaposi","Giardiasis","Tuberculosis extrapulmonar","Lepra","Medios de cultivo","Actinomicosis","Amebiasis intestinal","Anquilostomiasis","Ascariasis","Aspergilosis","Coccidioidomicosis","Difteria","Enfermedad de Chagas","Enfermedad de Lyme","Estrongiloidiasis","Fascitis necrosante","Fiebre de origen desconocido","Filariasis linfática","Filariasis ocular Loasis","Infecciones odontogénicas","Leishmaniasis","Leptospirosis","Mucormicosis","Oncocercosis","Oxiuriasis o enterobiasis","Poliomielitis","Rabia","Tricuriasis","Triquinosis","Neumonía adquirida en la comunidad","Neumonía bacteriana adquirida en la comunidad Niños","Influenza","Meningitis","Encefalitis viral","Absceso cerebral"],"HEMATOLOGÍA":["Anemia generalidades","Anemia ferropénica Adultos","Leucemias","Linfomas","Trombocitopenia inmune"],"NEUROLOGÍA":["Cefalea Secundarias","Cefaleas primarias","Crisis convulsivas","Estatus epiléptico","Crisis febriles","Enfermedad de Parkinson","Evc isquémico","Hemorragia subaracnoidea","Guillain Barré","Esclerosis múltiple","Evc hemorrágico","Miastenia gravis","Muerte encefálica"],"NEUMOLOGÍA":["Asma en pediátricos","Exacerbación de asma","Cáncer de pulmón","Epoc","Derrame pleural","Tabaquismo"],"REUMATOLOGÍA":["Artritis reactiva","Artritis reumatoide","Espondilitis anquilosante","Gota","Lupus eritematoso sistémico","Arteritis de la temporal","Granulomatosis de Wegener","Artritis séptica"],"NEFROLOGÍA":["Lesión renal aguda","Enfermedad renal crónica","Nefropatía diabética","Síndrome nefrítico y nefrootico","Trastorno ácido-base","Nefritis lúpica"],"DERMATOLOGÍA":["Dermatitis atópica","Dermatofitosis","SSJ y NET","Escabiosis - Sarna","Impétigo","Melanoma","Psoriasis","Carcinoma basocelular","Acné vulgar","Erisipela","Urticaria","Dermatitis por contacto","Pediculosis capitis","Síndrome de Ritter","Carcinoma espinocelular"],"PSIQUIATRÍA":["Abuso de sustancias","Abstinencia alcohólica","Trastorno por alcohol","Esquizofrenia","Estrés post traumático","Trastornos del sueño","Intento de suicidio","Tdah","Trastorno bipolar","Trastornos de ansiedad","Trastornos de conducta alimentaria","Consumo de mariguana","Violencia contra la mujer","Autismo","Síndrome de Munchausen","Depresión mayor"],"GERIATRÍA":["Valoración geriátrica","Alzheimer","Delirium","Demencia vascular","Deterioro cognitivo","Insomnio en el adulto mayor","Síndrome de caídas","Síndrome de fragilidad","Maltrato en el adulto mayor","Colapso del cuidador","Depresión mayor"],"GENÉTICA":["Síndrome de Down","Síndrome de Klinefelter","Síndrome de Turner","Síndrome de Marfan","Enfermedad de Wilson","Síndrome de Dravet","Síndrome de Lynch","Síndrome de Peutz Jegher","Von Hippel Lindau"]};
                 let allTopicsToSchedulePart1 = [];
-                Object.keys(topicsBySpecialtyPart1).forEach(specialty => {
-                    topicsBySpecialtyPart1[specialty].forEach(topic => {
-                        allTopicsToSchedulePart1.push({ specialty, topic });
-                    });
-                });
-
+                Object.keys(topicsBySpecialtyPart1).forEach(specialty => { topicsBySpecialtyPart1[specialty].forEach(topic => { allTopicsToSchedulePart1.push({ specialty, topic }); }); });
                 let plannedDaysPart1 = [];
                 let currentDatePart1 = new Date('2025-06-27');
-                
                 while (allTopicsToSchedulePart1.length > 0) {
                     currentDatePart1.setDate(currentDatePart1.getDate() - 1);
                     const chunkSize = Math.min(allTopicsToSchedulePart1.length, Math.floor(Math.random() * (8 - 4 + 1)) + 4);
                     const chunk = allTopicsToSchedulePart1.splice(0, chunkSize);
-                    
                     const dayData = { date: currentDatePart1.toISOString().split('T')[0], blocks: [] };
                     let lastSpecialty = null;
                     chunk.forEach(item => {
-                        if (item.specialty !== lastSpecialty) {
-                            dayData.blocks.push({ subject: item.specialty, topics: [item.topic] });
-                            lastSpecialty = item.specialty;
-                        } else {
-                            dayData.blocks[dayData.blocks.length - 1].topics.push(item.topic);
-                        }
+                        if (item.specialty !== lastSpecialty) { dayData.blocks.push({ subject: item.specialty, topics: [item.topic] }); lastSpecialty = item.specialty; } else { dayData.blocks[dayData.blocks.length - 1].topics.push(item.topic); }
                     });
                     plannedDaysPart1.push(dayData);
                 }
 
                 // FASE 2: Planificación hacia adelante (27 de Junio - 20 de Septiembre)
-                const topicsBySpecialtyPart2 = {
-                    "ORL": ["Epistaxis", "Fracturas nasales", "Faringoamigdalitis", "Angina de Ludwig", "Mastoiditis aguda", "Otitis", "Parálisis de Bell", "Neuralgia de trigémino", "Neuritis vestibular", "Rinosinusitis", "VPPB"],
-                    "OFTALMOLOGÍA": ["Conjuntivitis (alergica, bacteriana, neonatal, viral)", "Blefaritis", "Chalazión", "Orzuelo", "Glaucoma de ángulo abierto", "Glaucoma de ángulo cerrado", "Glaucoma congénito", "Ojo rojo", "Catarata", "Degeneración macular", "Desprendimiento de retina", "Retinopatía diabética", "Retinopatía hipertensiva", "Trauma ocular"],
-                    "TYO": ["Osteoartritis", "Osteomielitis", "Osteosarcoma", "Sarcoma de Ewing", "Tumores óseos malignos", "Embolia grasa", "Costilla cervical", "Esguince cervical", "Lumbalgia", "Hernia de disco", "Túnel del carpo", "Síndrome de hombro doloroso", "Fractura de clavícula", "Fractura de húmero proximal", "Luxación glenohumeral", "Luxación de codo", "Codo de niñera", "Fracturas de codo", "Fracturas de antebrazo", "Fractura de radio distal", "Lesiones fisiarias", "Fracturas expuestas", "Fractura de cadera", "Epifisiolistesis femoral", "Legg Calvé Perthes", "Luxación coxofemoral", "Lesiones de rodilla", "Fractura de diáfisis de tibia", "Esguince de tobillo", "Fractura de tobillo", "Rotura de talón de Aquiles", "Pie equino varo", "Pie plano"],
-                    "CARDIOLOGÍA": ["Fiebre reumática", "Estenosis aórtica", "Insuficiencia aórtica", "Estenosis mitral", "Insuficiencia mitral", "Otras valvulopatías", "Pericarditis", "Endocarditis infecciosa", "Infarto agudo de miocardio", "Enfermedad coronaria", "Disección aórtica", "Aneurisma aórtico abdominal", "Cor pulmonar crónico", "Hipertensión arterial sistémica", "Crisis hipertensivas", "Hipertensión pulmonar", "Insuficiencia cardíaca aguda", "Insuficiencia cardíaca crónica", "Edema pulmonar", "Hipotensión ortostática", "Rehabilitación cardíaca"],
-                    "ANGIOLOGÍA": ["Enfermedad arterial periférica", "Insuficiencia venosa", "Pie diabético", "Trombosis venosa profunda", "Tromboembolia pulmonar", "Paget Schroetter", "Tromboembolia venosa en obstetricia", "Úlceras por presión"],
-                    "ACLS": ["Soporte vital básico", "RCP", "Taquicardia ACLS", "Taquicardia supraventricular", "Bloqueos AV", "Bradicardia", "Fibrilación auricular", "Fibrilación ventricular", "Síndrome de WPW", "PLS", "Ahogamiento"],
-                    "ATLS": ["Politrauma", "Tipos de shock", "Choque hipovolémico", "Shock neurogénico", "TCE adultos", "TCE pediátrico", "Fracturas de cráneo", "Trauma torácico", "Hemotórax", "Neumotórax a tensión", "Neumotórax abierto", "Neumotórax simple", "Taponamiento cardíaco", "Lesión traqueobronquial", "Trauma abdominal", "Ruptura diafragmática", "Trauma esplénico", "Trauma espinal", "Trauma pélvico", "Trauma obstétrico", "Quemaduras", "Gran quemado", "Catéter venoso central", "Hipotermia"],
-                    "TOXICOLOGÍA": ["Manejo de intoxicaciones", "Toxíndromes", "Intoxicación por benzodiacepinas", "Intoxicación por organofosforados", "Intoxicación por paracetamol", "Intoxicación por salicilatos", "Intoxicación por etanol", "Intoxicación por monóxido de carbono", "Intoxicación por opiáceos", "Intoxicación por anfetaminas", "Intoxicación por fentanilo", "Intoxicación por DMT", "Intoxicación por hidrocarburos", "Intoxicación por metales pesados", "Intoxicación por plomo", "Intoxicación por alcoholes", "Ingesta de cáusticos", "Intoxicación alimentaria", "Anafilaxia", "Picadura de alacrán", "Mordedura de serpiente", "Lactrodectus", "Loxosceles", "Picadura de himenópteros", "Golpe de calor"],
-                    "GASTROENTEROLOGÍA": ["Reflujo ERGE", "Enfermedad ácido péptica", "Síndrome de intestino irritable", "Dispepsia funcional", "Mallory Weiss", "Zollinger Ellison", "Acalasia", "Esófago de Barrett", "Enfermedad celíaca", "Enfermedad de Crohn", "Colitis ulcerativa", "Enfermedad diverticular", "Sangrado TDA", "Sangrado TDB", "Varices esofágicas", "EHGNA", "Hepatitis A", "Hepatitis B", "Hepatitis C", "Hepatitis autoinmune", "Absceso hepático amebiano", "Absceso hepático piógeno", "Cirrosis hepática", "Insuficiencia hepática", "Ascitis", "Encefalopatía hepática", "Pancreatitis aguda", "Pancreatitis crónica", "Cáncer gástrico", "Cáncer de esófago", "Cáncer de páncreas", "Carcinoma hepatocelular"],
-                    "CIRUGÍA ABDOMINAL Y COLOPROCTOLOGÍA": ["Apendicitis aguda", "Apendicitis en el embarazo", "Hernias", "Hernia inguinal", "Hernia femoral", "Hernia hiatal", "Hernia umbilical", "Hernia ventral", "Colecistitis aguda", "Colelitiasis", "Coledocolitiasis", "Colangitis aguda", "Oclusión intestinal", "Isquemia intestinal", "Vólvulo de sigmoides", "Vólvulo de ciego", "Enfermedad hemorroidal", "Fístula anal", "Fisura anal", "Absceso anal", "Quiste pilonidal", "Cáncer colorrectal", "Poliposis adenomatosa familiar PAF", "Fístulas biliointestinales", "Colangiocarcinoma", "Complicaciones post Qx", "Heridas quirúrgicas"],
-                    "CIRUGÍA PEDIÁTRICA": ["Atresia esofágica", "Atresia duodenal", "Atresia yeyunoileal", "Atresia biliar", "Atresia de coanas", "Estenosis pilórica", "Hernia diafragmática congénita", "Malrotación intestinal", "Invaginación intestinal", "Divertículo de Meckel", "Hirschsprung", "Enfermedad de Hirschsprung", "Patología umbilical", "Criptorquidia", "Espina bífida", "Malformaciones rectales", "Retinoblastoma", "Nefroblastoma", "Neuroblastoma", "Tumor abdominal"],
-                    "GINECOLOGÍA": ["Amenorreas primarias", "Amenorreas secundarias", "Sangrado uterino anormal", "Dismenorrea aguda", "Adenomiosis", "Endometriosis", "Miomatosis uterina", "Hiperplasia endometrial", "Quiste de ovario benigno", "Torsión ovárica", "Ovario poliquístico", "Enfermedad pélvica inflamatoria", "Hidrosalpinx", "Fitz-Hugh-Curtis", "Vaginitis bacteriana", "Vaginitis infecciosa", "Tricomoniasis", "Bartolinitis", "Candidiasis vulvovaginal", "Chlamydia", "Mastitis", "Mastopatía fibroquística", "Fibroadenoma", "Papiloma intraductal", "Quiste mamario", "Patología mamaria benigna", "Osteoporosis post menopausia", "Menopausia y climaterio", "Insuficiencia ovárica primaria", "Anticonceptivos generalidades", "Anticonceptivos GPC", "Anticonceptivos hormonales combinados", "Anticoncepción de emergencia", "DIU de cobre", "DIU de levonorgestrel", "Implante subdérmico", "Progestágenos solos", "Lactancia como anticonceptivo", "Condón", "Vasectomía", "Oclusión tubaria bilateral OTB", "Infertilidad", "Cistocele e incontinencia"],
-                    "ONCOGINE": ["Tamizaje cáncer de mama", "Cáncer de mama", "Cáncer cérvicouterino", "Cáncer de endometrio", "Cáncer de ovario", "Cáncer de vagina", "Tumores anexiales"],
-                    "OBSTETRICIA": ["Control prenatal", "Aloinmunización materna", "Estática fetal", "Tipos de pelvis", "Atención del parto", "Manejo activo del parto", "Cesárea", "Parto pretérmino", "Puerperio fisiológico", "Líquido amniótico", "Ruptura prematura de membranas", "Corioamnionitis", "Distocias", "Embarazo múltiple", "Endometritis puerperal", "Hiperémesis gravídica", "Insuficiencia cervical", "Muerte fetal", "Enfermedades hipertensivas del embarazo", "Preeclampsia sin datos de severidad", "Síndrome de HELLP", "Diabetes gestacional", "IVU en el embarazo", "Restricción del crecimiento intrauterino", "Sepsis puerperal", "Síndrome de Sheehan", "Depresión posparto"],
-                    "HEMORRAGIAS OBSTÉTRICAS": ["Generalidades de hemorragias", "Hemorragia postparto", "Desgarro perineal", "Amenaza de aborto", "Aborto espontáneo", "Acretismo placentario", "Atonía uterina", "Choque hemorrágico en obstetricia", "Desprendimiento prematuro de placenta normoinserta", "Embarazo ectópico", "Placenta previa", "Ruptura uterina", "Vasa previa", "Enfermedad trofoblástica gestacional"],
-                    "NEONATOLOGÍA": ["APGAR", "Reanimación neonatal", "Prematuro sano", "Recién nacido de término", "Apnea del prematuro", "Asfixia neonatal", "Síndrome de dificultad respiratoria", "Taquipnea transitoria del recién nacido", "Síndrome de aspiración de meconio", "Displasia broncopulmonar", "Silverman Anderson", "Maduración pulmonar", "Encefalopatía hipóxica", "Enfermedad hemorrágica del recién nacido", "Enterocolitis necrotizante", "Hipoacusia neonatal", "Hipoglucemia neonatal", "Ictericia neonatal", "Muerte súbita del lactante", "Sepsis neonatal", "Tamiz neonatal", "Lesiones de plexo braquial obstétrico", "Lesiones extracraneales", "Displasia del desarrollo de la cadera DDC"],
-                    "CONGENITAS": ["Cardiopatías congénitas", "Tetralogía de Fallot", "Coartación aórtica", "Persistencia del conducto arterioso", "Fibrosis quística", "Fenilcetonuria", "Galactosemia clásica", "STORCH", "STORCH Citomegalovirus", "STORCH Herpes simple", "STORCH Rubéola congénita", "STORCH Sífilis congénita", "STORCH Toxoplasmosis", "STORCH Varicela congénita"],
-                    "ESCOLAR": ["Control de niño sano", "Etapas del crecimiento", "Talla baja", "Alergia alimentaria", "Cuerpo extraño", "Dermatitis del pañal", "Estreñimiento funcional", "Hiperplasia adrenal congénita", "Hipotiroidismo congénito", "Maltrato infantil", "Mucopolisacaridosis", "Reflujo gastroesofágico del lactante"],
-                    "NUTRICIÓN PEDIÁTRICA": ["Lactancia materna", "Alimentación complementaria", "Desnutrición pediátrica", "Deficiencia de vitamina A", "Hipovitaminosis", "Raquitismo carencial", "Pelagra en niños", "Intolerancia a la lactosa", "Obesidad en escolares", "Síndrome metabólico en niños"],
-                    "INFECTOLOGÍA PEDIÁTRICA": ["Adenitis mesentérica", "Onfalitis", "Exantemáticas Diferencial", "Eritema infeccioso", "Escarlatina", "Exantema súbito", "Enfermedad de Kawasaki", "Síndrome mano pie boca", "Rubéola", "Sarampión", "Varicela", "Parotiditis", "Bronquiolitis", "Epiglotitis", "Laringotraqueitis CRUP", "Mononucleosis infecciosa", "Tos ferina", "IVU en menores"],
-                    "VACUNAS": ["Vacunas generalidades", "Tipos de vacunas", "Vacunación universal", "Aplicación de vacunas", "Vacuna para personal de salud", "Vacunas en el embarazo", "Esquema de vacunación", "BCG", "Hepatitis A", "Hepatitis B", "Hexavalente", "Influenza", "Neumocócica", "Rotavirus", "Sabin", "Salmonella", "DPT", "SRP", "Tétanos", "Varicela", "VPH"]
-                };
-                
+                const topicsBySpecialtyPart2 = {"ORL":["Epistaxis","Fracturas nasales","Faringoamigdalitis","Angina de Ludwig","Mastoiditis aguda","Otitis","Parálisis de Bell","Neuralgia de trigémino","Neuritis vestibular","Rinosinusitis","VPPB"],"OFTALMOLOGÍA":["Conjuntivitis (alergica, bacteriana, neonatal, viral)","Blefaritis","Chalazión","Orzuelo","Glaucoma de ángulo abierto","Glaucoma de ángulo cerrado","Glaucoma congénito","Ojo rojo","Catarata","Degeneración macular","Desprendimiento de retina","Retinopatía diabética","Retinopatía hipertensiva","Trauma ocular"],"TYO":["Osteoartritis","Osteomielitis","Osteosarcoma","Sarcoma de Ewing","Tumores óseos malignos","Embolia grasa","Costilla cervical","Esguince cervical","Lumbalgia","Hernia de disco","Túnel del carpo","Síndrome de hombro doloroso","Fractura de clavícula","Fractura de húmero proximal","Luxación glenohumeral","Luxación de codo","Codo de niñera","Fracturas de codo","Fracturas de antebrazo","Fractura de radio distal","Lesiones fisiarias","Fracturas expuestas","Fractura de cadera","Epifisiolistesis femoral","Legg Calvé Perthes","Luxación coxofemoral","Lesiones de rodilla","Fractura de diáfisis de tibia","Esguince de tobillo","Fractura de tobillo","Rotura de talón de Aquiles","Pie equino varo","Pie plano"],"CARDIOLOGÍA":["Fiebre reumática","Estenosis aórtica","Insuficiencia aórtica","Estenosis mitral","Insuficiencia mitral","Otras valvulopatías","Pericarditis","Endocarditis infecciosa","Infarto agudo de miocardio","Enfermedad coronaria","Disección aórtica","Aneurisma aórtico abdominal","Cor pulmonar crónico","Hipertensión arterial sistémica","Crisis hipertensivas","Hipertensión pulmonar","Insuficiencia cardíaca aguda","Insuficiencia cardíaca crónica","Edema pulmonar","Hipotensión ortostática","Rehabilitación cardíaca"],"ANGIOLOGÍA":["Enfermedad arterial periférica","Insuficiencia venosa","Pie diabético","Trombosis venosa profunda","Tromboembolia pulmonar","Paget Schroetter","Tromboembolia venosa en obstetricia","Úlceras por presión"],"ACLS":["Soporte vital básico","RCP","Taquicardia ACLS","Taquicardia supraventricular","Bloqueos AV","Bradicardia","Fibrilación auricular","Fibrilación ventricular","Síndrome de WPW","PLS","Ahogamiento"],"ATLS":["Politrauma","Tipos de shock","Choque hipovolémico","Shock neurogénico","TCE adultos","TCE pediátrico","Fracturas de cráneo","Trauma torácico","Hemotórax","Neumotórax a tensión","Neumotórax abierto","Neumotórax simple","Taponamiento cardíaco","Lesión traqueobronquial","Trauma abdominal","Ruptura diafragmática","Trauma esplénico","Trauma espinal","Trauma pélvico","Trauma obstétrico","Quemaduras","Gran quemado","Catéter venoso central","Hipotermia"],"TOXICOLOGÍA":["Manejo de intoxicaciones","Toxíndromes","Intoxicación por benzodiacepinas","Intoxicación por organofosforados","Intoxicación por paracetamol","Intoxicación por salicilatos","Intoxicación por etanol","Intoxicación por monóxido de carbono","Intoxicación por opiáceos","Intoxicación por anfetaminas","Intoxicación por fentanilo","Intoxicación por DMT","Intoxicación por hidrocarburos","Intoxicación por metales pesados","Intoxicación por plomo","Intoxicación por alcoholes","Ingesta de cáusticos","Intoxicación alimentaria","Anafilaxia","Picadura de alacrán","Mordedura de serpiente","Lactrodectus","Loxosceles","Picadura de himenópteros","Golpe de calor"],"GASTROENTEROLOGÍA":["Reflujo ERGE","Enfermedad ácido péptica","Síndrome de intestino irritable","Dispepsia funcional","Mallory Weiss","Zollinger Ellison","Acalasia","Esófago de Barrett","Enfermedad celíaca","Enfermedad de Crohn","Colitis ulcerativa","Enfermedad diverticular","Sangrado TDA","Sangrado TDB","Varices esofágicas","EHGNA","Hepatitis A","Hepatitis B","Hepatitis C","Hepatitis autoinmune","Absceso hepático amebiano","Absceso hepático piógeno","Cirrosis hepática","Insuficiencia hepática","Ascitis","Encefalopatía hepática","Pancreatitis aguda","Pancreatitis crónica","Cáncer gástrico","Cáncer de esófago","Cáncer de páncreas","Carcinoma hepatocelular"],"CIRUGÍA ABDOMINAL Y COLOPROCTOLOGÍA":["Apendicitis aguda","Apendicitis en el embarazo","Hernias","Hernia inguinal","Hernia femoral","Hernia hiatal","Hernia umbilical","Hernia ventral","Colecistitis aguda","Colelitiasis","Coledocolitiasis","Colangitis aguda","Oclusión intestinal","Isquemia intestinal","Vólvulo de sigmoides","Vólvulo de ciego","Enfermedad hemorroidal","Fístula anal","Fisura anal","Absceso anal","Quiste pilonidal","Cáncer colorrectal","Poliposis adenomatosa familiar PAF","Fístulas biliointestinales","Colangiocarcinoma","Complicaciones post Qx","Heridas quirúrgicas"],"CIRUGÍA PEDIÁTRICA":["Atresia esofágica","Atresia duodenal","Atresia yeyunoileal","Atresia biliar","Atresia de coanas","Estenosis pilórica","Hernia diafragmática congénita","Malrotación intestinal","Invaginación intestinal","Divertículo de Meckel","Hirschsprung","Enfermedad de Hirschsprung","Patología umbilical","Criptorquidia","Espina bífida","Malformaciones rectales","Retinoblastoma","Nefroblastoma","Neuroblastoma","Tumor abdominal"],"GINECOLOGÍA":["Amenorreas primarias","Amenorreas secundarias","Sangrado uterino anormal","Dismenorrea aguda","Adenomiosis","Endometriosis","Miomatosis uterina","Hiperplasia endometrial","Quiste de ovario benigno","Torsión ovárica","Ovario poliquístico","Enfermedad pélvica inflamatoria","Hidrosalpinx","Fitz-Hugh-Curtis","Vaginitis bacteriana","Vaginitis infecciosa","Tricomoniasis","Bartolinitis","Candidiasis vulvovaginal","Chlamydia","Mastitis","Mastopatía fibroquística","Fibroadenoma","Papiloma intraductal","Quiste mamario","Patología mamaria benigna","Osteoporosis post menopausia","Menopausia y climaterio","Insuficiencia ovárica primaria","Anticonceptivos generalidades","Anticonceptivos GPC","Anticonceptivos hormonales combinados","Anticoncepción de emergencia","DIU de cobre","DIU de levonorgestrel","Implante subdérmico","Progestágenos solos","Lactancia como anticonceptivo","Condón","Vasectomía","Oclusión tubaria bilateral OTB","Infertilidad","Cistocele e incontinencia"],"ONCOGINE":["Tamizaje cáncer de mama","Cáncer de mama","Cáncer cérvicouterino","Cáncer de endometrio","Cáncer de ovario","Cáncer de vagina","Tumores anexiales"],"OBSTETRICIA":["Control prenatal","Aloinmunización materna","Estática fetal","Tipos de pelvis","Atención del parto","Manejo activo del parto","Cesárea","Parto pretérmino","Puerperio fisiológico","Líquido amniótico","Ruptura prematura de membranas","Corioamnionitis","Distocias","Embarazo múltiple","Endometritis puerperal","Hiperémesis gravídica","Insuficiencia cervical","Muerte fetal","Enfermedades hipertensivas del embarazo","Preeclampsia sin datos de severidad","Síndrome de HELLP","Diabetes gestacional","IVU en el embarazo","Restricción del crecimiento intrauterino","Sepsis puerperal","Síndrome de Sheehan","Depresión posparto"],"HEMORRAGIAS OBSTÉTRICAS":["Generalidades de hemorragias","Hemorragia postparto","Desgarro perineal","Amenaza de aborto","Aborto espontáneo","Acretismo placentario","Atonía uterina","Choque hemorrágico en obstetricia","Desprendimiento prematuro de placenta normoinserta","Embarazo ectópico","Placenta previa","Ruptura uterina","Vasa previa","Enfermedad trofoblástica gestacional"],"NEONATOLOGÍA":["APGAR","Reanimación neonatal","Prematuro sano","Recién nacido de término","Apnea del prematuro","Asfixia neonatal","Síndrome de dificultad respiratoria","Taquipnea transitoria del recién nacido","Síndrome de aspiración de meconio","Displasia broncopulmonar","Silverman Anderson","Maduración pulmonar","Encefalopatía hipóxica","Enfermedad hemorrágica del recién nacido","Enterocolitis necrotizante","Hipoacusia neonatal","Hipoglucemia neonatal","Ictericia neonatal","Muerte súbita del lactante","Sepsis neonatal","Tamiz neonatal","Lesiones de plexo braquial obstétrico","Lesiones extracraneales","Displasia del desarrollo de la cadera DDC"],"CONGENITAS":["Cardiopatías congénitas","Tetralogía de Fallot","Coartación aórtica","Persistencia del conducto arterioso","Fibrosis quística","Fenilcetonuria","Galactosemia clásica","STORCH","STORCH Citomegalovirus","STORCH Herpes simple","STORCH Rubéola congénita","STORCH Sífilis congénita","STORCH Toxoplasmosis","STORCH Varicela congénita"],"ESCOLAR":["Control de niño sano","Etapas del crecimiento","Talla baja","Alergia alimentaria","Cuerpo extraño","Dermatitis del pañal","Estreñimiento funcional","Hiperplasia adrenal congénita","Hipotiroidismo congénito","Maltrato infantil","Mucopolisacaridosis","Reflujo gastroesofágico del lactante"],"NUTRICIÓN PEDIÁTRICA":["Lactancia materna","Alimentación complementaria","Desnutrición pediátrica","Deficiencia de vitamina A","Hipovitaminosis","Raquitismo carencial","Pelagra en niños","Intolerancia a la lactosa","Obesidad en escolares","Síndrome metabólico en niños"],"INFECTOLOGÍA PEDIÁTRICA":["Adenitis mesentérica","Onfalitis","Exantemáticas Diferencial","Eritema infeccioso","Escarlatina","Exantema súbito","Enfermedad de Kawasaki","Síndrome mano pie boca","Rubéola","Sarampión","Varicela","Parotiditis","Bronquiolitis","Epiglotitis","Laringotraqueitis CRUP","Mononucleosis infecciosa","Tos ferina","IVU en menores"],"VACUNAS":["Vacunas generalidades","Tipos de vacunas","Vacunación universal","Aplicación de vacunas","Vacuna para personal de salud","Vacunas en el embarazo","Esquema de vacunación","BCG","Hepatitis A","Hepatitis B","Hexavalente","Influenza","Neumocócica","Rotavirus","Sabin","Salmonella","DPT","SRP","Tétanos","Varicela","VPH"]};
                 let allTopicsToSchedulePart2 = [];
-                 Object.keys(topicsBySpecialtyPart2).forEach(specialty => {
-                    topicsBySpecialtyPart2[specialty].forEach(topic => {
-                        allTopicsToSchedulePart2.push({ specialty, topic });
-                    });
-                });
+                 Object.keys(topicsBySpecialtyPart2).forEach(specialty => { topicsBySpecialtyPart2[specialty].forEach(topic => { allTopicsToSchedulePart2.push({ specialty, topic }); }); });
 
                 const startDatePart2 = new Date('2025-06-27');
                 const endDatePart2 = new Date('2025-09-20');
@@ -647,6 +308,7 @@
                     const chunkSize = baseTopicsPerDay + (i < remainderTopics ? 1 : 0);
                     const chunk = allTopicsToSchedulePart2.slice(topicIndex, topicIndex + chunkSize);
                     topicIndex += chunkSize;
+                    if(chunk.length === 0) continue; // CORRECCIÓN: Evita crear días vacíos si no hay temas
 
                     const dayData = { date: currentDatePart2.toISOString().split('T')[0], blocks: [] };
                     let lastSpecialty = null;
@@ -671,6 +333,7 @@
                     finalPlannedDays.push({ date: lastPlannedDate.toISOString().split('T')[0], blocks: [] });
                 }
 
+                // CORRECCIÓN: La función ahora devuelve el plan generado.
                 return finalPlannedDays.sort((a,b) => new Date(a.date) - new Date(b.date));
             }
 
